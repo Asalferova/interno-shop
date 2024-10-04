@@ -1,0 +1,147 @@
+//Adaptive
+@mixin adaptive($media-width) {
+  @media screen and (max-width: #{$media-width}px) {
+    @content;
+  }
+}
+
+//placeholder
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+@mixin text-style($weight, $size){
+	font-weight: $weight;
+	font-size: #{$size}px;
+	margin: 0;
+}
+
+@mixin btn(
+	$bg-color: $secondary,
+	$border-color: transparent,
+	$text-color: $text-primary,
+	$radius: 13px,
+	$small: false,
+) {
+	@include in-center;
+	padding: 8px 24px;
+	max-width: fit-content;
+	background-color: $bg-color;
+	border-radius: $radius;
+	border: none;
+	font-size: 22px;
+	letter-spacing: .16px;
+	font-weight: 400;
+	line-height: 1;
+	color: $text-color;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all .3s;
+	user-select: none;
+	&:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+		pointer-events: none;
+		color: white;
+	}
+}
+
+@mixin in-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin wrapperWithError() {
+	display: block;
+
+	&__wrapper {
+		display: block;
+		width: 100%;
+	}
+
+	&__input--error {
+		outline: 1px solid $lighterror;
+	}
+
+	&__error {
+		display: block;
+		color: $lighterror;
+		font-size: 14px;
+		line-height: 1.5;
+		padding-bottom: 3px;
+	}
+}
+
+@mixin inputStyle() {
+	width: 100%;
+	box-sizing: border-box;
+	font-family: inherit;
+	border: none;
+	background-color: $input-background;
+	transition: all .3s;
+	font-weight: 400;
+	padding: 5px 15px;
+	&--error {
+		border-color: $lighterror !important;
+		color: $lighterror;
+
+		@include placeholder {
+			color: $lighterror;
+		}
+	}
+
+	&--success {
+		border-color: $success!important;
+		color: $success;
+
+		@include placeholder {
+			color: $success;
+		}
+	}
+
+	&--disabled {
+		opacity: .5;
+
+		&:focus,
+		&:hover {
+			outline: none;
+		}
+	}
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin text-ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@mixin DMSerifDisplay () {
+  font-family: 'DM Serif Display', 'sans-serif';
+}
+
+@mixin whiteBlur() {
+  background: rgba(255, 255, 255, .48);
+}
+
+@mixin darkBlur() {
+  background: rgba(18, 19, 20, .88);
+}

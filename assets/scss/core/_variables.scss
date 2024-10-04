@@ -1,0 +1,58 @@
+// colors
+:root {
+  // light theme
+	--primary:                        #cda274;
+  --secondary:                      #E7E7E7;
+	--lightprimary:                   #fff;
+	--background:                     #fff;
+  --text-primary:                   #292f36;
+	--text-light-primary:             #fff;
+  --text-secondary:                 #6a6666;
+	--primary-hover:                  #d7a56f;
+  --lighterror:                     #E45B30;
+	--success:                        #13BA61;
+	--input-background:               #fff;
+	--link:                           #232383;
+	--accent:                         #fd3737;
+	--primary-hover-text:             #d7a56f;
+
+  // dark theme
+  &.dark-mode {
+		--primary:                        #4a4a4a;
+    --secondary:                      #2c2c2c;
+		--lightprimary:                   #4a4a4a;
+    --text-light-primary:             #dcdde1;
+    --background:                     #1e1e1e;
+    --text-primary:                   #dcdde1;
+    --text-secondary:                 #7f8fa6;
+    --primary-hover:                  #5a5a5a;
+    --lighterror:                     #e84118;
+    --success:                        #44bd32;
+    --input-background:               #dcdde1;
+		--link:                           #232383;
+		--accent:                         #fd3737;
+		--primary-hover-text:             #ffffff;
+  }
+}
+
+
+$primary: var(--primary);
+$secondary: var(--secondary);
+$text-light-primary: var(--text-light-primary);
+$background: var(--background);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$primary-hover: var(--primary-hover);
+$lighterror: var(--lighterror);
+$success: var(--success);
+$input-background: var(--input-background);
+$link: var(--link);
+$accent: var(--accent);
+$lightprimary: var(--lightprimary);
+$primary-hover-text: var(--primary-hover-text);
+
+$black: #000;
+$white: #fff;
+
+$shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(255, 255, 255, 0.05);
+$shadow-top: 0 -2px 4px rgba(0, 0, 0, 0.05), 0 -2px 4px rgba(255, 255, 255, 0.05);

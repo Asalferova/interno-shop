@@ -1,0 +1,26 @@
+.text {
+	&-body-reg {
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 100%;
+		letter-spacing: .16px;
+	}
+	&-body-reg-12 {
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 100%;
+		letter-spacing: .16px;
+	}
+	&-body-reg-16 {
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 100%;
+		letter-spacing: .16px;
+	}
+
+	&-body-sb {
+		font-weight: 600;
+		font-size: 14px;
+		line-height: 140%;
+	}
+}
