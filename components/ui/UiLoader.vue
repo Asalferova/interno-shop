@@ -5,17 +5,24 @@
 <style lang="scss" scoped>
 .loader {
   position: fixed;
-  top: 0;
+  top: 117px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 117px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: $background;
   z-index: 9999;
+	@include adaptive(1024) {
+		top: 76px;
+		height: calc(100% - 76px);
+	}
+	@include adaptive(600) {
+		top: 82px;
+		height: calc(100% - 82px);
+	}
 }
-
 .loader::before {
   content: "";
   display: block;
@@ -26,7 +33,6 @@
   border-top-color: transparent;
   animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
   to {
     transform: rotate(360deg);

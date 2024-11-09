@@ -8,3 +8,13 @@ export const textTruncate = (text: string, limit = 0) => {
 
 	return `${text.slice(0, limit)}...`
 }
+
+export function truncateNumber (num: number) {
+	if (!num) {
+		return ''
+	}
+	if (num > 9) {
+		return '9+'
+	}
+	return String(num)
+}

@@ -28,7 +28,8 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			apiBase: process.env.NUXT_PUBLIC_API_BASE,
-			apiPrefix: '/api/'
+			apiPrefix: '/api/',
+			baseUrl: process.env.NUXT_BASE_URL
 		}
 	},
 	proxy: {
@@ -69,13 +70,13 @@ export default defineNuxtConfig({
 		'@nuxtjs/i18n',
 		'@nuxtjs/color-mode',
 		'@vueuse/nuxt',
-		'@nuxt-alt/auth',
 		'@nuxt-alt/http',
 		'@nuxt-alt/proxy',
 		'@pinia/nuxt',
 		'nuxt-swiper',
 		'@vue-final-modal/nuxt',
-		'@nuxtjs/device'
+		'@nuxtjs/device',
+		'@pinia-plugin-persistedstate/nuxt'
 	],
 	css: [
 		'vue-final-modal/style.css',
@@ -125,36 +126,5 @@ export default defineNuxtConfig({
 		defaultLocale: 'ru',
 		langDir: 'locales',
 		detectBrowserLanguage: false
-	},
-	auth: {
-		watchLoggedIn: true,
-		redirect: {
-			login: '/',
-			logout: '/',
-			callback: '/',
-			home: '/'
-		},
-		strategies: {
-			cookie: {
-				user: {
-					property: false,
-					autoFetch: true
-				},
-				endpoints: {
-					login: {
-						url: '/api/account/sessions/email',
-						method: 'post'
-					},
-					logout: {
-						url: '/api/account/sessions/current',
-						method: 'delete'
-					},
-					user: {
-						url: '/api/account',
-						method: 'get'
-					}
-				}
-			}
-		}
 	}
 })

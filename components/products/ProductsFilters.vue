@@ -20,7 +20,7 @@
             :options="categoryAndSubcategories?.subcategories"
             :tabindex="1"
             class="products-filters__item"
-            :default-label="categoryAndSubcategories?.category"
+            :default-label="categoryAndSubcategories.category"
             :has-interactive-label="false"
             @close="resetFilter('category')"
 						role="button"
@@ -64,7 +64,7 @@
         <tippy
           v-else
           theme="menu"
-          :tag="null"
+          tag="null"
           content-tag="div"
           content-class="actions"
           interactive
@@ -73,7 +73,7 @@
           :arrow="false"
           placement="bottom-end"
         >
-          <ui-button class="products-filters__btn">Фильтры</ui-button>
+          <ui-button class="products-filters__btn">{{ $t('filters') }}</ui-button>
 
           <template #content="{ hide }">
             <div class="products-filters__wrapper">
@@ -137,9 +137,9 @@
 import { Tippy, type TippyComponent } from "vue-tippy";
 import { storeToRefs } from "pinia";
 import { useMediaQuery } from "@vueuse/core";
-import { useRoute } from "#imports";
+import { computed, ref, useRoute, watch } from "#imports";
 import { useProductsStore } from "~/store/products";
-import { CategoryOptions } from "~/helpers/filterOptions";
+import { categoryOptions } from "~/helpers/filterOptions";
 import { Sorting } from "~/helpers/constants";
 import { removeEmptyProperties, applyQuery } from "~/utils/dataTransform";
 import { useSellersStore } from "~/store/sellers";
@@ -172,7 +172,7 @@ const initialFilters = ref<ProductsFiltersSpecs>({
 const getCategoryAndSubcategories = (subcategoryLabel: string) => {
   return computed(() => {
     let result = null;
-    for (const cat of CategoryOptions) {
+    for (const cat of categoryOptions) {
       const foundSubcategory = cat.subcategories.find(
         (sub) => sub.label === subcategoryLabel
       );
@@ -184,7 +184,7 @@ const getCategoryAndSubcategories = (subcategoryLabel: string) => {
         return result;
       }
     }
-    const allSubcategories = CategoryOptions.flatMap(
+    const allSubcategories = categoryOptions.flatMap(
       (cat) => cat.subcategories
     );
     return {
@@ -193,9 +193,19 @@ const getCategoryAndSubcategories = (subcategoryLabel: string) => {
   });
 };
 
-const categoryAndSubcategories = getCategoryAndSubcategories(
-  initialFilters.value.subcategories[0]
-);
+const categoryAndSubcategories = getCategoryAndSubcategories(initialFilters.value?.subcategories?.[0] || '')
+
+const showResetAllButton = computed(() => {
+  const keys = Object.keys(removeEmptyProperties(initialFilters.value));
+  if (keys.length < 1) {
+    return false;
+  }
+  return keys.length >= 1;
+});
+
+const acceptFilters = () => {
+  productsStore.setFilters(removeEmptyProperties(initialFilters.value));
+};
 
 const resetFilter = (key: string, item?: string) => {
   switch (key) {
@@ -210,15 +220,8 @@ const resetFilter = (key: string, item?: string) => {
       initialFilters.value.sellers = [];
       break;
   }
+	acceptFilters()
 };
-
-const showResetAllButton = computed(() => {
-  const keys = Object.keys(removeEmptyProperties(initialFilters.value));
-  if (keys.length < 1) {
-    return false;
-  }
-  return keys.length >= 1;
-});
 
 const resetAll = () => {
   initialFilters.value = {
@@ -227,10 +230,7 @@ const resetAll = () => {
     priceFrom: "",
     priceTo: "",
   };
-};
-
-const acceptFilters = () => {
-  productsStore.setFilters(removeEmptyProperties(initialFilters.value));
+	acceptFilters()
 };
 
 watch(

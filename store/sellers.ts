@@ -8,7 +8,7 @@ export const useSellersStore = defineStore('sellers', () => {
 			const res = await api.sellers.getSellers()
 			return res.documents
 		} catch (e) {
-			console.log(e)
+			console.warn(e)
 			return []
 		}
 	}, {

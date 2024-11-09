@@ -1,21 +1,27 @@
+import { useCurrencyStore } from './currensy'
+import { useLocaleStore } from './locale'
 import api from '~/api'
 import { Sorting } from '~/helpers/constants'
-import type { FilterDefault } from '~/types/filter'
-import type { Pagination } from '~/types/pagination'
+import type { FilterDefault, Pagination, SortDefault } from '~/types/filter'
 import type { ProductItem, ProductsFiltersSpecs } from '~/types/products/products.item'
-import type { SortDefault } from '~/types/sort'
 import { isArrayNotEmptyStrings, isNotEmptyString } from '~/utils/type-guards'
 
 export const useProductsStore = defineStore('products', () => {
 	const filtersSpecs = ref<ProductsFiltersSpecs>({
 	})
-
 	const currentSortKey = ref(Sorting.NEW)
-
 	const pagination = ref<Pagination>({
 		method: 'limit',
 		values: [25]
 	})
+	const product = ref({} as ProductItem)
+	const statusProduct = ref<'pending' | 'success' | 'error' | null>(null)
+
+	const currencyStore = useCurrencyStore()
+	const localeStore = useLocaleStore()
+	const {
+		currentLocaleFilter
+	} = storeToRefs(localeStore)
 
 	const { subcategories, sellers, priceFrom, priceTo } = useRoute().query
 	if (isArrayNotEmptyStrings(subcategories) || isNotEmptyString(subcategories)) {
@@ -56,21 +62,24 @@ export const useProductsStore = defineStore('products', () => {
 			result.push({
 				method: 'greaterThan',
 				attribute: 'price',
-				values: [+filtersSpecs.value.priceFrom]
+				values: [currencyStore.convertUsdToRub(+filtersSpecs.value.priceFrom)]
 			})
 		}
 		if (!filtersSpecs.value.priceFrom && filtersSpecs.value.priceTo) {
 			result.push({
 				method: 'lessThan',
 				attribute: 'price',
-				values: [+filtersSpecs.value.priceTo]
+				values: [currencyStore.convertUsdToRub(+filtersSpecs.value.priceTo)]
 			})
 		}
 		if (filtersSpecs.value.priceFrom && filtersSpecs.value.priceTo) {
 			result.push({
 				method: 'between',
 				attribute: 'price',
-				values: [+filtersSpecs.value.priceFrom, +filtersSpecs.value.priceTo]
+				values: [
+					currencyStore.convertUsdToRub(+filtersSpecs.value.priceFrom),
+					currencyStore.convertUsdToRub(+filtersSpecs.value.priceTo)
+				]
 			})
 		}
 		return result
@@ -105,18 +114,35 @@ export const useProductsStore = defineStore('products', () => {
 		refresh: refreshProducts
 	} = useLazyAsyncData<ProductItem[]>('products:list', async () => {
 		try {
-			const res = await api.products.getProducts(...recalculatedFilter?.value, ...recalculatedSorting?.value, pagination.value)
+			const res = await api.products.getProducts(
+				...recalculatedFilter?.value,
+				...recalculatedSorting?.value,
+				pagination.value,
+				currentLocaleFilter.value
+			)
 			return res.documents
 		} catch (e) {
-			console.log(e)
+			console.warn(e)
 			return []
 		}
 	}, {
-		watch: [filtersSpecs, pagination, currentSortKey],
+		watch: [filtersSpecs, pagination, currentSortKey, currentLocaleFilter],
 		default () {
 			return [] as ProductItem[]
 		}
 	})
+
+	const getProduct = async (id: string) => {
+		statusProduct.value = 'pending'
+		try {
+			const res = await api.products.getProductById(id)
+			product.value = res
+			statusProduct.value = 'success'
+		} catch (e) {
+			statusProduct.value = 'error'
+			console.warn(e)
+		}
+	}
 
 	return {
 		filtersSpecs,
@@ -124,6 +150,9 @@ export const useProductsStore = defineStore('products', () => {
 		productsStatus,
 		refreshProducts,
 		setFilters,
-		currentSortKey
+		currentSortKey,
+		getProduct,
+		product,
+		statusProduct
 	}
 })

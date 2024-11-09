@@ -49,6 +49,9 @@
 	cursor: pointer;
 	transition: all .3s;
 	user-select: none;
+	&:hover {
+		color: $primary-hover-text;
+	}
 	&:disabled {
 		opacity: 0.4;
 		cursor: not-allowed;
@@ -75,6 +78,16 @@
 		outline: 1px solid $lighterror;
 	}
 
+	&__error {
+		display: block;
+		color: $lighterror;
+		font-size: 14px;
+		line-height: 1.5;
+		padding-bottom: 3px;
+	}
+}
+
+@mixin error() {
 	&__error {
 		display: block;
 		color: $lighterror;
@@ -144,4 +157,19 @@
 
 @mixin darkBlur() {
   background: rgba(18, 19, 20, .88);
+}
+
+@mixin text-multiline-ellipsis($lineCount) {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: $lineCount;
+	white-space: pre-wrap;
+}
+
+@mixin textRestrictions($line-clamp) {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: $line-clamp;
+	-webkit-box-orient: vertical;
 }

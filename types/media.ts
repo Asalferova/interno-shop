@@ -6,6 +6,6 @@ export interface MediaImage {
 	$permissions: string[];
 	$updatedAt: string;
 	name: string;
-	path: string;
+	src: string;
 	products?: string[];
 }

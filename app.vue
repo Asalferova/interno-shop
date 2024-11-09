@@ -13,7 +13,7 @@ const { t, locale } = useI18n()
 
 const updateTitle = (title?: string) => {
 	return (title?.length && title !== `${t('siteTitle')}`)
-		? `${title} | ${t('siteTitle')} - ${t('siteDescription')}`
+		? `${t(title)} | ${t('siteTitle')} - ${t('siteDescription')}`
 		: `${t('siteTitle')} - ${t('siteDescription')}`
 }
 

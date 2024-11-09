@@ -1,5 +1,8 @@
 import type { Locale } from '../languages'
+import type { CurrencyName } from '../currency'
 import type { MediaImage } from '~/types/media'
+import type { Comment } from '~/types/comments'
+
 export interface ProductItem {
 	$collectionId: string,
 	$createdAt: string,
@@ -17,7 +20,9 @@ export interface ProductItem {
 	seller: string,
 	initialPrice?: number,
 	locale: Locale,
-	currency: 'RUB' | 'USD'
+	currency: CurrencyName,
+	description: string,
+	comments: Comment[]
 }
 
 export interface ProductsFiltersSpecs {

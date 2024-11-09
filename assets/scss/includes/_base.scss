@@ -19,6 +19,9 @@ img {
 
 ::-webkit-scrollbar {
   display: block;
+	@include adaptive(767) {
+		display: none;
+	}
 }
 
 ::-webkit-scrollbar-thumb {
@@ -64,11 +67,15 @@ body {
 		text-decoration: none;
 		color: $text-primary;
 		&:hover {
-			color: $primary-hover;
+			color: $primary-hover-text;
 	}
 }
 
 .loading {
 	position: absolute;
 	inset: 0;
+}
+
+.bold {
+	font-weight: 600;
 }

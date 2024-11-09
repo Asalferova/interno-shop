@@ -1,17 +1,12 @@
 <template>
 	<div class="layout">
-		<layout-header :header-top-links="menuItemsHeaderAditional" />
+		<layout-header />
 		<div class="layout__main-page">
 			<slot />
 			<ModalsContainer />
 		</div>
 		<layout-mobile-nav-bar />
-		<layout-footer
-			:menu-socials="socials"
-			:menu-contacts="contacts"
-			:menu-rules="menuRules"
-			class="layout__footer"
-		/>
+		<layout-footer :menu-socials="socials" :menu-contacts="contacts" :menu-rules="menuRules" class="layout__footer" />
 	</div>
 </template>
 
@@ -19,19 +14,7 @@
 import { ModalsContainer } from 'vue-final-modal'
 import type { MenuType } from '~/types/menu'
 
-const menuItemsHeaderAditional: MenuType[] = [
-	{ label: 'become a seller', key: 'become a seller' },
-	{
-		label: 'blog',
-		key: 'blog',
-		path: 'https://asalferova.github.io/SiteInterno/'
-	},
-	{ label: 'mobile application', key: 'mobile application', path: '/' },
-	{ label: 'coupons', key: 'coupons', path: '/' },
-	{ label: 'help', key: 'help', path: '/' }
-]
-
-const socials = [
+const socials: MenuType[] = [
 	{
 		key: 'Telegram',
 		label: 'Telegram',
@@ -46,7 +29,7 @@ const socials = [
 	}
 ]
 
-const contacts = [
+const contacts: MenuType[] = [
 	{
 		key: 'Address',
 		label: 'Moscow, Pushkin street',
@@ -64,19 +47,19 @@ const contacts = [
 	}
 ]
 
-const menuRules = [
+const menuRules: MenuType[] = [
 	{
 		key: 'terms',
 		label: 'termsOfUse',
 		to: {
-			name: 'index'
+			name: 'termsOfUse'
 		}
 	},
 	{
 		key: 'private',
 		label: 'privatePolicy',
 		to: {
-			name: 'index'
+			name: 'privacyPolicy'
 		}
 	}
 ]
@@ -84,25 +67,25 @@ const menuRules = [
 
 <style lang="scss" scoped>
 .layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 
-  &__main-page {
-    flex: 1;
-    padding-top: 138px;
+	&__main-page {
+		flex: 1;
+		padding-top: 143px;
 
-    @include adaptive(1024) {
-      padding-top: 97px;
-    }
-  }
+		@include adaptive(1024) {
+			padding-top: 108px;
+		}
+	}
 
-  &__footer {
-    margin-top: auto;
+	&__footer {
+		margin-top: auto;
 
-    @include adaptive(1024) {
-      margin-bottom: 82px;
-    }
-  }
+		@include adaptive(1024) {
+			margin-bottom: 82px;
+		}
+	}
 }
 </style>

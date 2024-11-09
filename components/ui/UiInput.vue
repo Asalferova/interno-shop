@@ -95,7 +95,7 @@ const props = defineProps({
 		default: "right",
 	},
 	bgColor: {
-		type: String as PropType<"default">,
+		type: String as PropType<"default" | "transparent">,
 		default: "default",
 	},
 	size: {
@@ -196,7 +196,7 @@ const iconClick = () => {
 			margin: 0;
 		}
 
-		@each $classBtn, $bgColor in (default, $input-background), (white, $background) {
+		@each $classBtn, $bgColor in (default, $input-background), (transparent, transparent) {
 			&#{"--bg-" + $classBtn} {
 				background-color: $bgColor;
 			}

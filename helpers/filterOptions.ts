@@ -1,6 +1,12 @@
-import type { FiltersCategoryOption } from '~/types/filterOptions'
+export interface FiltersSubCategoryOption {
+  label: string;
+}
+export interface FiltersCategoryOption {
+	label: string,
+	subcategories: FiltersSubCategoryOption[]
+}
 
-export const CategoryOptions: FiltersCategoryOption[] = [
+export const categoryOptions: FiltersCategoryOption[] = [
 	{
 		label: 'fiction',
 		subcategories: [

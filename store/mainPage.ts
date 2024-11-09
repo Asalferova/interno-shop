@@ -1,13 +1,12 @@
 import api from '~/api'
 import type { ProductItem } from '~/types/products/products.item'
-import { useLocaleStore } from '~/store/locale.js'
-import type { Pagination } from '~/types/pagination'
-import type { FilterDefault } from '~/types/filter'
+import { useLocaleStore } from '~/store/locale'
+import type { FilterDefault, Pagination } from '~/types/filter'
 
 export const useMainPageStore = defineStore('main-page-store', () => {
 	const localeStore = useLocaleStore()
 	const {
-		currentLocale
+		currentLocaleFilter
 	} = storeToRefs(localeStore)
 
 	const currentSortKey = ref('isNew')
@@ -17,21 +16,21 @@ export const useMainPageStore = defineStore('main-page-store', () => {
 		values: [25]
 	})
 
-	const { data: sortBooks } = useLazyAsyncData('main-page-sorted-books', async () => {
+	const { data: sortBooks, status: statusSortBooks } = useLazyAsyncData('main-page-sorted-books', async () => {
 		const filters = <FilterDefault>{
 			method: 'equal',
 			attribute: currentSortKey.value,
 			values: [true]
 		}
 		try {
-			const res = await api.products.getProducts(filters, sortBooksPaginationModel.value, currentLocale.value)
+			const res = await api.products.getProducts(filters, sortBooksPaginationModel.value, currentLocaleFilter.value)
 			return res.documents
 		} catch (e) {
-			console.log(e)
+			console.warn(e)
 			return []
 		}
 	}, {
-		watch: [currentSortKey, sortBooksPaginationModel, currentLocale],
+		watch: [currentSortKey, sortBooksPaginationModel, currentLocaleFilter],
 		default () {
 			return [] as ProductItem[]
 		}
@@ -42,16 +41,16 @@ export const useMainPageStore = defineStore('main-page-store', () => {
 		values: [12]
 	})
 
-	const { data: allBooks } = useLazyAsyncData('main-page-all-books', async () => {
+	const { data: allBooks,  status: statusAllBooks } = useLazyAsyncData('main-page-all-books', async () => {
 		try {
-			const res = await api.products.getProducts(allBooksPaginationModel.value, currentLocale.value)
+			const res = await api.products.getProducts(allBooksPaginationModel.value, currentLocaleFilter.value)
 			return res.documents
 		} catch (e) {
-			console.log(e)
+			console.warn(e)
 			return []
 		}
 	}, {
-		watch: [allBooksPaginationModel, currentLocale],
+		watch: [allBooksPaginationModel, currentLocaleFilter],
 		default () {
 			return [] as ProductItem[]
 		}
@@ -61,6 +60,8 @@ export const useMainPageStore = defineStore('main-page-store', () => {
 		allBooks,
 		allBooksPaginationModel,
 		sortBooks,
-		currentSortKey
+		currentSortKey,
+		statusSortBooks,
+		statusAllBooks
 	}
 })
