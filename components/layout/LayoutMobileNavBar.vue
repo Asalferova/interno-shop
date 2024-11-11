@@ -16,6 +16,7 @@
 								<div class="layout-mobile-navbar__mm">
 									<div class="layout-mobile-navbar__close" @click="hide"><ui-svg :name="'close'"
 											class="layout-mobile-navbar__close-icon"></ui-svg></div>
+
 									<nav :style="'width: 100%;'">
 										<ul class="list layout-mobile-navbar__mm-menu">
 											<li class="layout-mobile-navbar__mm-menu-link" v-for="category in categoryOptions"
@@ -29,14 +30,17 @@
 													}" @click.stop>
 														<li v-for="subcategory in category.subcategories" :key="subcategory.label"
 															class="list layout-mobile-navbar__category-sub-name">
-															<ui-button class="list layout-mobile-navbar__category-btn" :color="'transparent'"
-																target="_blank" :to="{
-																	name: 'catalog',
-																	query: {
-																		subcategories: subcategory.label,
-																	},
-																}">{{ $t(`subCategories.${subcategory.label}`) }}
-															</ui-button>
+															<nuxt-link v-slot="{ href, navigate }" :to="{
+														name: 'catalog',
+														query: {
+															subcategories: subcategory.label,
+														},
+													}" custom>
+														<a :href="href" class="link layout-mobile-navbar__category-btn"
+															@click="clearQueryAndNavigate(navigate)">
+															{{ $t(`subCategories.${subcategory.label}`) }}
+														</a>
+													</nuxt-link>
 														</li>
 													</ul>
 												</nav>
@@ -195,6 +199,11 @@ const toggleCategory = (categoryId: string) => {
 	activeCategory.value =
 		activeCategory.value === categoryId ? null : categoryId;
 };
+
+const clearQueryAndNavigate = (navigate: () => void) => {
+	router.replace({ query: {}, replace: true })
+	navigate()
+}
 </script>
 
 <style lang="scss" scoped>

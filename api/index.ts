@@ -5,6 +5,7 @@ import help from '~/api/help'
 import ads from '~/api/ads'
 import user from '~/api/user'
 import auth from '~/api/auth'
+import search from '~/api/search'
 
 export const getApiUrl = (databaseId: string, collectionId: string): string => {
 	const config = useRuntimeConfig()
@@ -19,7 +20,8 @@ const api = {
 	sellers,
 	comments,
 	auth,
-	help
+	help,
+	search
 }
 
 export default api

@@ -6,6 +6,10 @@ import type { FilterDefault, Pagination, SortDefault } from '~/types/filter'
 import type { ProductItem, ProductsFiltersSpecs } from '~/types/products/products.item'
 import { isArrayNotEmptyStrings, isNotEmptyString } from '~/utils/type-guards'
 
+type Search = {
+	search: string[]
+};
+
 export const useProductsStore = defineStore('products', () => {
 	const filtersSpecs = ref<ProductsFiltersSpecs>({
 	})
@@ -16,6 +20,7 @@ export const useProductsStore = defineStore('products', () => {
 	})
 	const product = ref({} as ProductItem)
 	const statusProduct = ref<'pending' | 'success' | 'error' | null>(null)
+	const searchValue = ref({} as Search)
 
 	const currencyStore = useCurrencyStore()
 	const localeStore = useLocaleStore()
@@ -23,7 +28,7 @@ export const useProductsStore = defineStore('products', () => {
 		currentLocaleFilter
 	} = storeToRefs(localeStore)
 
-	const { subcategories, sellers, priceFrom, priceTo } = useRoute().query
+	const { subcategories, sellers, priceFrom, priceTo, search } = useRoute().query
 	if (isArrayNotEmptyStrings(subcategories) || isNotEmptyString(subcategories)) {
 		filtersSpecs.value.subcategories = [subcategories].flat()
 	}
@@ -35,6 +40,9 @@ export const useProductsStore = defineStore('products', () => {
 	}
 	if (isNotEmptyString(priceTo)) {
 		filtersSpecs.value.priceTo = priceTo
+	}
+	if ((isArrayNotEmptyStrings(search) || isNotEmptyString(search))) {
+		searchValue.value.search = [search].flat()
 	}
 
 	const setFilters = (appliedFilters: ProductsFiltersSpecs) => {
@@ -108,6 +116,33 @@ export const useProductsStore = defineStore('products', () => {
 		return result
 	})
 
+	const setSearch = (appliedFilters: Search) => {
+		searchValue.value = appliedFilters
+		updateQuery(searchValue.value)
+	}
+
+	const recalculatedSearch = computed(() => {
+		const result: FilterDefault[] = []
+		if (searchValue.value.search?.length) {
+			result.push({
+				method: "or",
+				values: [
+					{
+						method: "contains",
+						attribute: "name",
+						values: searchValue.value.search
+					},
+					{
+						method: "contains",
+						attribute: "author",
+						values: searchValue.value.search
+					}
+				]
+			})
+		}
+		return result
+	})
+
 	const {
 		data: products,
 		status: productsStatus,
@@ -117,6 +152,7 @@ export const useProductsStore = defineStore('products', () => {
 			const res = await api.products.getProducts(
 				...recalculatedFilter?.value,
 				...recalculatedSorting?.value,
+				...recalculatedSearch?.value,
 				pagination.value,
 				currentLocaleFilter.value
 			)
@@ -126,7 +162,7 @@ export const useProductsStore = defineStore('products', () => {
 			return []
 		}
 	}, {
-		watch: [filtersSpecs, pagination, currentSortKey, currentLocaleFilter],
+		watch: [filtersSpecs, pagination, currentSortKey, currentLocaleFilter, searchValue],
 		default () {
 			return [] as ProductItem[]
 		}
@@ -153,6 +189,8 @@ export const useProductsStore = defineStore('products', () => {
 		currentSortKey,
 		getProduct,
 		product,
-		statusProduct
+		statusProduct,
+		searchValue,
+		setSearch
 	}
 })

@@ -14,7 +14,7 @@ export const removeEmptyProperties = <T extends Record<string, any>>(value: T) =
 	})
 }
 
-export const applyQuery = <T extends Record<string, unknown>>(queryValues: LocationQuery, defaultValues: T) => {
+export const applyQuery = <T extends {}>(queryValues: LocationQuery, defaultValues: T) => {
 	if (typeof queryValues !== 'object') {
 		console.warn('queryValues must be an object')
 		return

@@ -65,6 +65,7 @@
           v-else
           theme="menu"
           tag="null"
+					ref="el"
           content-tag="div"
           content-class="actions"
           interactive
@@ -73,7 +74,7 @@
           :arrow="false"
           placement="bottom-end"
         >
-          <ui-button class="products-filters__btn">{{ $t('filters') }}</ui-button>
+          <ui-button class="products-filters__btn" @click.prevent>{{ $t('filters') }}</ui-button>
 
           <template #content="{ hide }">
             <div class="products-filters__wrapper">
@@ -151,6 +152,7 @@ const sellersStore = useSellersStore();
 const { uniqueSellersNames } = storeToRefs(sellersStore);
 const route = useRoute();
 const isSmallScreen = useMediaQuery("(max-width: 1024px)");
+const el = ref<TippyComponent | null>(null)
 
 const filtersParams: ProductsFiltersSpecs = {
   subcategories: [],
@@ -231,7 +233,12 @@ const resetAll = () => {
     priceTo: "",
   };
 	acceptFilters()
+	hide()
 };
+
+const hide = () => {
+	el.value?.hide()
+}
 
 watch(
   () => sortParam.value,

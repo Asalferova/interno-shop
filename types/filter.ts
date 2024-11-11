@@ -1,7 +1,14 @@
-export interface FilterDefault {
+export interface Filter {
 	method: string,
 	attribute?: string,
 	values?: boolean[] | string[] | number[]
+}
+
+
+export interface FilterDefault {
+	method: string,
+	attribute?: string,
+	values?: boolean[] | string[] | number[] | Filter[]
 }
 
 export interface Pagination {

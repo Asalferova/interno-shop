@@ -15,8 +15,9 @@
 				<nav class="layout-header__top-menu">
 					<ul class="list layout-header__links">
 						<li>
-							<ui-button class="link layout-header__link layout-header__link--special" @click="onPlaceAd">{{ $t(`aditionalMenu.become a seller`)
-								}}</ui-button>
+							<ui-button class="link layout-header__link layout-header__link--special" @click="onPlaceAd">{{
+								$t(`aditionalMenu.become a seller`)
+							}}</ui-button>
 						</li>
 						<li>
 							<ui-button :to="'https://asalferova.github.io/SiteInterno/'" :color="'transparent'" target="_blank"
@@ -33,16 +34,17 @@
 							</tippy>
 						</li>
 						<li>
-							<ui-button :color="'transparent'" class="link layout-header__link" @click="openHelpModal">{{ $t(`aditionalMenu.help`)
-								}}</ui-button>
+							<ui-button :color="'transparent'" class="link layout-header__link" @click="openHelpModal">{{
+								$t(`aditionalMenu.help`)
+							}}</ui-button>
 						</li>
 					</ul>
 				</nav>
 			</div>
-		<div class="container layout-header__bottom">
+			<div class="container layout-header__bottom">
 				<page-logo v-if="!isSmallScreen" class="layout-header__logo" />
-			<div class="layout-header__wrapper-search" ref="filter">
-					<div v-if="!isSmallScreen" class="layout-header__catalog">
+				<div class="layout-header__wrapper-search">
+					<div v-if="!isSmallScreen" class="layout-header__catalog" ref="filter">
 						<ui-button :prepend-icon="isOpen ? 'cross' : 'catalog'" :color="'primary'" :aria-label="$t('catalog')"
 							@click="openCatalog">
 							<span class="layout-header__catalog-text">{{ $t("catalog") }}</span>
@@ -53,19 +55,22 @@
 									<li v-for="category in categoryOptions" :key="category.label" class="layout-header__category">
 										<span class="layout-header__category-name">{{
 											$t(`categories.${category.label}`)
-											}}</span>
+										}}</span>
 										<nav class="layout-header__categories-nav">
 											<ul class="list layout-header__category-sub">
 												<li v-for="subcategory in category.subcategories" :key="subcategory.label"
 													class="list layout-header__category-sub-name">
-													<ui-button class="list layout-header__category-btn" :color="'transparent'"
-														target="_blank" :to="{
-															name: 'catalog',
-															query: {
-																subcategories: subcategory.label,
-															},
-														}">{{ $t(`subCategories.${subcategory.label}`) }}
-													</ui-button>
+													<nuxt-link v-slot="{ href, navigate }" :to="{
+														name: 'catalog',
+														query: {
+															subcategories: subcategory.label,
+														},
+													}" custom>
+														<a :href="href" class="link layout-header__category-btn"
+															@click="clearQueryAndNavigate(navigate)">
+															{{ $t(`subCategories.${subcategory.label}`) }}
+														</a>
+													</nuxt-link>
 												</li>
 											</ul>
 										</nav>
@@ -74,13 +79,8 @@
 							</nav>
 						</div>
 					</div>
-				<div class="layout-header__search">
-					<ui-input :type="'search'" :autocomplete="'off'" :placeholder="$t('mainSearch')" :border-radius="'big'"
-						class="layout-header__search-input" :aria-label="$t('mainSearch')"></ui-input>
-					<ui-button :append-icon="'search'" :color="'primary'" :aria-label="$t('mainSearch')">
-					</ui-button>
+					<page-search-bar></page-search-bar>
 				</div>
-			</div>
 				<nav v-if="!isSmallScreen" class="list layout-header__nav">
 					<ul class="list layout-header__menu">
 						<li class="layout-header__menu-item">
@@ -112,8 +112,8 @@
 						</li>
 					</ul>
 				</nav>
-		</div>
-	</client-only>
+			</div>
+		</client-only>
 	</header>
 </template>
 
@@ -134,6 +134,8 @@ import { useCurrencyStore } from "~/store/currensy";
 import { categoryOptions } from "~/helpers/filterOptions";
 
 const router = useRouter();
+const route = useRoute()
+
 const isSmallScreen = useMediaQuery("(max-width:1024px)");
 const { locale } = useI18n()
 
@@ -205,6 +207,12 @@ onClickOutside(filter, () => {
 const closeFilter = () => {
 	isOpen.value = false;
 };
+
+const clearQueryAndNavigate = (navigate: () => void) => {
+	router.replace({ query: {}, replace: true })
+	navigate()
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -261,15 +269,6 @@ const closeFilter = () => {
 		width: 100%;
 	}
 
-	&__search {
-		display: flex;
-		background-color: $primary;
-		border-radius: 13px;
-		padding: 3px;
-		height: 42px;
-		width: 100%;
-	}
-
 	&__nav {
 		margin-left: auto;
 	}
@@ -311,13 +310,14 @@ const closeFilter = () => {
 			width: calc(100% - 104px);
 			max-width: 1338px;
 			padding: 32px 26px;
-			&__nav {
-			width: 100%;
-		}
 
-		& :deep(.ui-button) {
-			text-align: start;
-		}
+			&__nav {
+				width: 100%;
+			}
+
+			& :deep(.ui-button) {
+				text-align: start;
+			}
 		}
 
 		&-text {
@@ -326,49 +326,55 @@ const closeFilter = () => {
 			}
 		}
 	}
+
 	&__categories {
-			display: flex;
-			flex-direction: column;
-			gap: 26px;
-			text-align: center;
-			&-nav {
-				width: 100%;
-			}
+		display: flex;
+		flex-direction: column;
+		gap: 26px;
+		text-align: center;
+
+		&-nav {
+			width: 100%;
+		}
+	}
+
+	&__category {
+		display: flex;
+		gap: 54px;
+		position: relative;
+		padding-bottom: 10px;
+		align-items: center;
+
+		&:not(:last-child) {
+			border-bottom: 1px solid $primary;
 		}
 
-		&__category {
+		&-sub {
 			display: flex;
-			gap: 54px;
-			position: relative;
-			padding-bottom: 10px;
+			justify-content: space-between;
 			align-items: center;
-
-			&:not(:last-child) {
-				border-bottom: 1px solid $primary;
-			}
-
-			&-sub {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				flex-wrap: wrap;
-				gap: 40px;
-				font-size: 18px;
-				width: 100%;
-
-				&-name {
-					width: 110px;
-				}
-			}
+			flex-wrap: wrap;
+			gap: 40px;
+			font-size: 18px;
+			width: 100%;
 
 			&-name {
-				pointer-events: none;
-				font-weight: bold;
-				min-width: 200px;
-				max-width: 200px;
-				font-size: 20px;
+				width: 110px;
 			}
 		}
+
+		&-name {
+			pointer-events: none;
+			font-weight: bold;
+			min-width: 200px;
+			max-width: 200px;
+			font-size: 20px;
+		}
+
+		&-btn {
+			font-size: 20px;
+		}
+	}
 
 	&__link {
 		font-size: 14px;
@@ -389,9 +395,5 @@ const closeFilter = () => {
 			padding: 0;
 		}
 	}
-}
-
-.router-link-active {
-	color: $primary-hover;
 }
 </style>
