@@ -293,5 +293,6 @@ export default {
 			title: 'Contact information',
 			desc: 'If you have questions or comments regarding this Privacy Policy, please contact us:'
 		}
-	}
+	},
+	cookieMessage: 'This site uses cookies to ensure the site functions correctly. For optimal functioning of the resource, you must enable cookie support in your browser settings.'
 }
