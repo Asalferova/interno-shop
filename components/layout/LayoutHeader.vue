@@ -134,7 +134,6 @@ import { useCurrencyStore } from "~/store/currensy";
 import { categoryOptions } from "~/helpers/filterOptions";
 
 const router = useRouter();
-const route = useRoute()
 
 const isSmallScreen = useMediaQuery("(max-width:1024px)");
 const { locale } = useI18n()

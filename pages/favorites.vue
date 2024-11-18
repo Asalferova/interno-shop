@@ -1,13 +1,13 @@
 <template>
 	<div class="favorites-page container">
-		<template v-if="statusfavoritesProducts === 'pending'">
-       <ui-loader></ui-loader>
-		</template>
 		<page-breadcrumbs :crumbs="crumbs" class="favorites-page__breadcrumbs" />
 		<h1 class="favorites-page__title">
 			{{ $t('favorites') }}
 		</h1>
-		<template v-if="favoritesProductsData && favoritesProductsData.length">
+		<template v-if="statusfavoritesProducts === 'pending'">
+			<ui-loader></ui-loader>
+		</template>
+		<template v-else-if="favoritesProductsData && favoritesProductsData.length">
 			<main class="favorites-page__main">
 				<products-list class="favorites-page__products" :products="favoritesProductsData" />
 			</main>
@@ -15,11 +15,7 @@
 		<template v-else>
 			<div class="favorites-page__message">
 				{{ $t("Nothing found") }}
-				<ui-button
-					:color="'primary'"
-					class="favorites-page__message-link"
-					to="/"
-				>
+				<ui-button :color="'primary'" class="favorites-page__message-link" to="/">
 					{{ $t("Return to home") }}
 				</ui-button>
 			</div>
@@ -36,9 +32,16 @@ useHead({
 
 const favoritesStore = useFavoritesStore()
 favoritesStore.getMyFavorites()
-const { favoritesProductsData, statusfavoritesProducts } = storeToRefs(favoritesStore)
+const { favoritesProductsData, statusfavoritesProducts, pagination } = storeToRefs(favoritesStore)
 
 const crumbs = [{ name: 'favorites', path: null }]
+
+const el = ref<Document | null>(null);
+
+onMounted(() => {
+	el.value = document;
+	useInfiniteScroll(el, favoritesStore.loadMore, { distance: 100 });
+});
 
 </script>
 
@@ -70,9 +73,9 @@ const crumbs = [{ name: 'favorites', path: null }]
 		}
 
 		&-link {
-      @include adaptive(767) {
-			font-size: 16px;
-		}
+			@include adaptive(767) {
+				font-size: 16px;
+			}
 		}
 	}
 }

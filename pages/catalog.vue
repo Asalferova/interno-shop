@@ -45,6 +45,13 @@ const setCardsSize = (size: 'small' | 'medium') => {
 }
 
 const crumbs = [{ name: 'catalog', path: null }]
+
+const el = ref<Document | null>(null);
+
+onMounted(() => {
+	el.value = document;
+	useInfiniteScroll(el, productsStore.loadMore, { distance: 100 });
+});
 </script>
 
 <style lang="scss" scoped>

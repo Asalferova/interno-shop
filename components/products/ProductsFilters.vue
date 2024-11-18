@@ -147,7 +147,7 @@ import { useSellersStore } from "~/store/sellers";
 import type { ProductsFiltersSpecs } from "~/types/products/products.item";
 
 const productsStore = useProductsStore();
-const { filtersSpecs, currentSortKey } = storeToRefs(productsStore);
+const { filtersSpecs, currentSortKey, searchValue } = storeToRefs(productsStore);
 const sellersStore = useSellersStore();
 const { uniqueSellersNames } = storeToRefs(sellersStore);
 const route = useRoute();
@@ -246,6 +246,15 @@ watch(
     currentSortKey.value = sortParam.value;
   }
 );
+
+watchEffect(() => {
+    const search = route.query.search;
+    if ((isArrayNotEmptyStrings(search) || isNotEmptyString(search))) {
+        searchValue.value = { search:  [search].flat() };
+    } else {
+			searchValue.value = { search:  [] };
+		}
+});
 </script>
 <style lang="scss" scoped>
 .products-filters {

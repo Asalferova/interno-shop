@@ -16,10 +16,10 @@ export const useProductsStore = defineStore('products', () => {
 	const currentSortKey = ref(Sorting.NEW)
 	const pagination = ref<Pagination>({
 		method: 'limit',
-		values: [25]
+		values: [24]
 	})
+	const totalItems = ref(0)
 	const product = ref({} as ProductItem)
-	const statusProduct = ref<'pending' | 'success' | 'error' | null>(null)
 	const searchValue = ref({} as Search)
 
 	const currencyStore = useCurrencyStore()
@@ -116,11 +116,6 @@ export const useProductsStore = defineStore('products', () => {
 		return result
 	})
 
-	const setSearch = (appliedFilters: Search) => {
-		searchValue.value = appliedFilters
-		updateQuery(searchValue.value)
-	}
-
 	const recalculatedSearch = computed(() => {
 		const result: FilterDefault[] = []
 		if (searchValue.value.search?.length) {
@@ -156,6 +151,7 @@ export const useProductsStore = defineStore('products', () => {
 				pagination.value,
 				currentLocaleFilter.value
 			)
+			totalItems.value = res.total
 			return res.documents
 		} catch (e) {
 			console.warn(e)
@@ -169,15 +165,35 @@ export const useProductsStore = defineStore('products', () => {
 	})
 
 	const getProduct = async (id: string) => {
-		statusProduct.value = 'pending'
 		try {
 			const res = await api.products.getProductById(id)
 			product.value = res
-			statusProduct.value = 'success'
 		} catch (e) {
-			statusProduct.value = 'error'
 			console.warn(e)
 		}
+	}
+
+	const loadMore = async () => {
+		if (products.value.length < totalItems.value) {
+			const remaining = totalItems.value - products.value.length
+			const limit = Math.min(remaining, 24);
+			try {
+				const res = await api.products.getProducts(
+				...[
+				{ method: 'limit', values: [limit] },
+				{ method: 'offset', values: [products.value.length] }],
+				...recalculatedFilter?.value,
+				...recalculatedSorting?.value,
+				...recalculatedSearch?.value,
+				currentLocaleFilter.value
+			)
+				products.value =  [...products.value, ...res.documents]
+			} catch (e) {
+				console.log(e)
+				throw e
+			}
+		}
+		return
 	}
 
 	return {
@@ -189,8 +205,8 @@ export const useProductsStore = defineStore('products', () => {
 		currentSortKey,
 		getProduct,
 		product,
-		statusProduct,
 		searchValue,
-		setSearch
+		loadMore,
+		totalItems
 	}
 })

@@ -8,26 +8,24 @@
 		</div>
 		<div>
 			<ul class="list page-search-bar__autocomplette-list" v-if="suggestions.length">
-				<li class="page-search-bar__autocomplette-item"
-				v-for="(item, index) in suggestions" :key="index" @click="startSearch(item.author, item.name)">
-				{{ item.author}} / {{ item.name }}</li>
+				<li class="page-search-bar__autocomplette-item" v-for="(item, index) in suggestions" :key="index"
+					@click="startSearch(item.author, item.name)">
+					{{ item.author }} / {{ item.name }}</li>
 			</ul>
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import { useProductsStore } from "~/store/products";
 import { refDebounced } from '@vueuse/core'
 import api from "~/api";
 import type { Search } from "~/types/search";
 
 const route = useRoute()
+const router = useRouter()
 const { locale } = useI18n()
 
-const productsStore = useProductsStore();
-const { searchValue } = storeToRefs(productsStore);
-const searchString = ref(searchValue.value?.search?.join(' ') || '');
+const searchString = ref('');
 const debouncedSearch = refDebounced(searchString, 500)
 const suggestions = ref<Search[]>([]);
 
@@ -40,11 +38,13 @@ const startSearch = async (author?: string, name?: string) => {
 	}
 
 	if (route.name === 'catalog') {
-		productsStore.setSearch({ search: searchTerms });
+		router.replace({ query: { search: searchTerms }, replace: true })
 		searchString.value = ''
 	} else {
-		await navigateTo({ name: 'catalog' });
-		productsStore.setSearch({ search: searchTerms });
+		await navigateTo({
+			name: 'catalog',
+			query: { search: searchTerms }
+		});
 		searchString.value = ''
 	}
 };

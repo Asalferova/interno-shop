@@ -56,6 +56,14 @@ const bookSortItems = [
 	{ key: 'isBestseller', label: 'bestseller' },
 	{ key: 'isDiscounted', label: 'sale' }
 ]
+
+const el = ref<Document | null>(null);
+
+onMounted(() => {
+	el.value = document;
+	useInfiniteScroll(el, mainPageStore.loadMore, { distance: 100 });
+});
+
 </script>
 
 <style lang="scss" scoped>

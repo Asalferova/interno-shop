@@ -24,8 +24,6 @@ const checkedSrc = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "/assets/scss/core";
-
 .ui-circle-image {
 	@include in-center;
 	position: relative;

@@ -16,6 +16,8 @@ export const useMainPageStore = defineStore('main-page-store', () => {
 		values: [25]
 	})
 
+	const totalItems = ref(0)
+
 	const { data: sortBooks, status: statusSortBooks } = useLazyAsyncData('main-page-sorted-books', async () => {
 		const filters = <FilterDefault>{
 			method: 'equal',
@@ -44,6 +46,7 @@ export const useMainPageStore = defineStore('main-page-store', () => {
 	const { data: allBooks,  status: statusAllBooks } = useLazyAsyncData('main-page-all-books', async () => {
 		try {
 			const res = await api.products.getProducts(allBooksPaginationModel.value, currentLocaleFilter.value)
+			totalItems.value = res.total
 			return res.documents
 		} catch (e) {
 			console.warn(e)
@@ -56,12 +59,36 @@ export const useMainPageStore = defineStore('main-page-store', () => {
 		}
 	})
 
+	const loadMore = async () => {
+		if (allBooks.value.length < totalItems.value) {
+			const remaining = totalItems.value - allBooks.value.length
+			const limit = Math.min(remaining, 12);
+			try {
+				const res = await api.products.getProducts(...[{
+					method: 'limit',
+					values: [limit]
+				},
+				{
+					method: 'offset',
+					values: [allBooks.value.length]
+				}], currentLocaleFilter.value)
+				allBooks.value =  [...allBooks.value, ...res.documents]
+			} catch (e) {
+				console.log(e)
+				throw e
+			}
+		}
+		return
+	}
+
 	return {
 		allBooks,
 		allBooksPaginationModel,
 		sortBooks,
 		currentSortKey,
 		statusSortBooks,
-		statusAllBooks
+		statusAllBooks,
+		loadMore,
+		totalItems
 	}
 })
