@@ -33,6 +33,8 @@ export default {
 	more: 'More',
 	seller: 'Seller',
 	buyer: 'Buyer',
+	DateOfBirth: 'Date of Birth',
+	cardNumber: 'Card Number',
 	'for you': 'For you',
 	'all books': 'All books',
 	categories: {
@@ -88,6 +90,8 @@ export default {
 	areYouSure: 'Are you sure?',
 	confirm: 'Confirm',
 	remove: 'Remove',
+	edit: 'Edit',
+	delete: 'Remove',
 	'See all': 'See all',
 	'Learn more': 'Learn more',
 	'See more': 'See more',

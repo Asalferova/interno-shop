@@ -34,7 +34,8 @@ export interface UserRegistrationResponse extends User {}
 export interface UserDbDTO {
   documentId: string,
 	data: {
-		name: string
+		name: string,
+		email?: string
 	}
 }
 
@@ -47,5 +48,16 @@ export interface UserDbResponse {
 	avatar: string,
 	comments: Comment[],
 	$databaseId: string,
-	$collectionId: string
+	$collectionId: string,
+	email?: string,
+	surname?: string,
+	dateOfBirth: string,
+	phone: string,
+	cardNumber?: string
+}
+export interface UserProfileUpdatePayload {
+  surname: string;
+  dateOfBirth: string;
+	phone: string;
+	cardNumber: string;
 }

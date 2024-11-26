@@ -1,3 +1,5 @@
 export default {
-	profile: 'Profile'
+	profile: 'Profile',
+	active: 'Active',
+	draft: 'Drafts'
 }

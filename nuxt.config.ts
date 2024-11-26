@@ -56,7 +56,11 @@ export default defineNuxtConfig({
 			},
 			'/upload': {
 				target: process.env.NUXT_PUBLIC_API_BASE,
-				changeOrigin: true
+				changeOrigin: true,
+				headers: {
+					'X-Appwrite-Project': process.env.APP_WRITE_ID
+				},
+				rewrite: path => path.replace(/^\/upload/, '')
 			}
 		}
 	},

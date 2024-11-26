@@ -1,0 +1,62 @@
+export default {
+	newAds: 'Создать товар',
+	editAds: 'Редактировать товар',
+	type: 'Тип объявления',
+	title: 'Заголовок',
+	typeTransaction: 'Тип транзакции',
+	typeRental: 'Тип аренды',
+	propertyType: 'Тип недвижимости',
+	object: 'Объект',
+	apartments: {
+		typeHouse: 'Тип дома',
+		yearConstruction: 'Год постройки',
+		floor: 'Этаж',
+		floorsInTheHouse: 'Этажей в доме',
+		parking: 'Парковка',
+		passenger: 'Пассажирский лифт',
+		entrance: 'Подъезд',
+		yard: 'Двор',
+		numberOfRooms: 'Количество комнат',
+		studio: 'Студия',
+		totalArea: 'Общая площадь',
+		livingArea: 'Жилая площадь',
+		kitchen: 'Кухня',
+		numberOfBedrooms: 'Количество спален',
+		sleepingPlaces: 'Спальные места',
+		balconies: 'Балконы',
+		viewWindow: 'Вид из окна',
+		bathroom: 'Санузел',
+		bathroomType: {
+			combined: 'Совмещенный',
+			separated: 'Раздельный'
+		},
+		repair: 'Ремонт',
+		furniture: 'Мебель',
+		appliances: 'Техника',
+		communication: 'Коммуникации',
+		animals: 'Животные',
+		children: 'Дети',
+		houseType: {
+			commissioned: 'Сдан',
+			construction: 'Строится'
+		},
+		finished: 'Отделка',
+		unfinished: 'Без отделки',
+		yearOfDelivery: 'Год сдачи'
+	},
+	townhouse: {
+		nameCottageSettlement: 'Название коттеджного поселка',
+		cadastralNumber: 'Кадастровый номер',
+		yearOfConstruction: 'Год постройки',
+		houseMaterial: 'Материал дома',
+		areaHouse: 'Площадь дома',
+		plotArea: 'Площадь участка',
+		numberOfFloors: 'Количество этажей',
+		heating: 'Отопление'
+	},
+	withoutUtilities: 'Без коммунальных услуг',
+	utilityBills: 'Счета за коммунальные услуги',
+	countersPaidSeparately: 'Счетчики оплачиваются отдельно.',
+	pledgeToTheOwner: 'Залог владельцу',
+	prepayment: 'Предоплата'
+}

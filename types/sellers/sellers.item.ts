@@ -1,3 +1,5 @@
+import type { ProductItem } from "../products/products.item";
+
 export interface SellerItem {
 	$collectionId: string,
 	$createdAt: string,
@@ -6,6 +8,7 @@ export interface SellerItem {
 	$permissions:string[],
 	$updatedAt:string,
 	name:string,
+	products: ProductItem[]
 }
 
 export interface SellersFetchResponse {

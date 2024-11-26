@@ -32,7 +32,7 @@ useHead({
 
 const favoritesStore = useFavoritesStore()
 favoritesStore.getMyFavorites()
-const { favoritesProductsData, statusfavoritesProducts, pagination } = storeToRefs(favoritesStore)
+const { favoritesProductsData, statusfavoritesProducts } = storeToRefs(favoritesStore)
 
 const crumbs = [{ name: 'favorites', path: null }]
 

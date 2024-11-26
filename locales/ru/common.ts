@@ -36,6 +36,7 @@ export default {
 	'all books': 'Все книги',
 	seller: 'Продавец',
 	buyer: 'Покупатель',
+	DateOfBirth: 'Дата Рождения',
 	categories: {
 		all: 'Категория',
 		fiction: 'Художественная литература',
@@ -91,6 +92,8 @@ export default {
 	areYouSure: 'Вы уверены?',
 	confirm: 'Подтвердить',
 	remove: 'Удалить',
+	edit: 'Редактировать',
+	delete: 'Удалить',
 	'See all': 'Смотреть все',
 	'Learn more': 'Узнать больше',
 	'See more': 'Смотреть больше',
@@ -128,7 +131,6 @@ export default {
 	NoTitle: 'Без названия',
 	ID: 'ID',
 	SocialMedia: 'Социальные сети',
-	DateOfBirth: 'Дата рождения',
 	Phone: 'Телефон',
 	Back: 'Назад',
 	here: 'здесь',
@@ -136,6 +138,7 @@ export default {
 	no: 'Нет',
 	name: 'Имя',
 	surname: 'Фамилия',
+	cardNumber: 'Номер карты',
 	reviews: {
 		allReviews: 'Отзывы',
 		leaveReview: 'Оставьте отзыв',

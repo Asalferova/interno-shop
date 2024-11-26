@@ -1,16 +1,16 @@
 <template>
 	<centered-modal class="auth-modal-seller">
-			<template #title>
+		<template #title>
 			<transition name="fade" mode="out-in">
 				<span>
-					{{ !seller ? $t('EnterStoreName') : $t('You can only register one store') }}
+					{{ !sellerDB ? $t('EnterStoreName') : $t('You can only register one store') }}
 				</span>
 			</transition>
 		</template>
 		<div v-if="error" class="auth-modal-seller__error text-medium-15-19">
 			{{ error }}
 		</div>
-		<form v-if="!seller">
+		<form v-if="!sellerDB">
 			<ui-input v-model="storeName" required border-radius="big" autocomplete="off" :placeholder="$t('storeName')"
 				class="auth-modal-seller__input" />
 			<ui-button class="auth-modal-seller__btn" :color="'primary'" @click="signUpBySeller">
@@ -25,34 +25,28 @@ import CenteredModal from "~/components/modals/CenteredModal.vue";
 import { useUserStore } from "~/store/user";
 import { useAuthStore } from "~/store/auth";
 import { storeToRefs } from "pinia";
-import { useSellerStore } from "~/store/seller";
 
 const { t } = useI18n();
 
 const userStore = useUserStore()
 const authStore = useAuthStore();
+authStore.fetchSeller()
 
-const { user } = storeToRefs(authStore);
-
-const sellerStore = useSellerStore();
-if (user.value) {
-  sellerStore.getSeller(user.value.$id);
-}
-const { seller } = storeToRefs(sellerStore)
+const { user, sellerDB } = storeToRefs(authStore);
 
 const storeName = ref('')
 const error = ref('')
 
 const signUpBySeller = async () => {
-	if(!user.value) return
+	if (!user.value) return
 	try {
-		if(storeName.value) {
+		if (storeName.value) {
 			await userStore.createSeller({
-			documentId: user.value?.$id,
-			data: {
-				name: storeName.value
-			}
-		});
+				documentId: user.value?.$id,
+				data: {
+					name: storeName.value
+				}
+			});
 		} else {
 			error.value = t('EnterStoreName')
 		}

@@ -9,6 +9,9 @@ const products = {
 	},
 	getProductById: async (id: string) : Promise<ProductItem> => {
 		return await $http.$get(`${getApiUrl('internoBD', 'products')}/${id}`)
+	},
+	deleteProduct: async (id: string) => {
+		return await $http.delete(`${getApiUrl('internoBD', 'products')}/${id}`)
 	}
 }
 
