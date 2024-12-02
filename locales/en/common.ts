@@ -16,6 +16,9 @@ export default {
 	theme: 'Theme',
 	light: 'Light',
 	dark: 'Dark',
+	Description: 'Description',
+	Photo: 'Photo',
+	DescriptionAndPhotos: 'Description and photo',
 	aditionalMenu: {
 		'become a seller': 'Become a seller',
 		blog: 'Blog',
@@ -68,7 +71,7 @@ export default {
 	to: 'to',
 	button: {
 		signIn: 'Sign In',
-		placeAnAd: 'Place an ad'
+		postProduct: 'Post a product'
 	},
 	apply: 'Apply',
 	sorting: {
@@ -91,6 +94,7 @@ export default {
 	confirm: 'Confirm',
 	remove: 'Remove',
 	edit: 'Edit',
+	download: 'Download',
 	delete: 'Remove',
 	'See all': 'See all',
 	'Learn more': 'Learn more',
@@ -105,6 +109,7 @@ export default {
 	'Return to home': 'Return to home',
 	All: 'All',
 	Price: 'Price',
+	PriceWithoutDiscounts: 'Price without discounts',
 	More: 'More',
 	Rating: 'Rating',
 	'no ratings': 'No ratings',
@@ -121,7 +126,6 @@ export default {
 	User: 'User',
 	Save: 'Save',
 	Change: 'Change',
-	Photo: 'Photo',
 	Contacts: 'Contacts',
 	From: 'From',
 	To: 'To',

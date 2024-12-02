@@ -7,6 +7,7 @@
 		<div class="profile-seller__btns">
 			<ui-button class="profile-seller__btn" color="primary" @click="router.push({
 				name: 'products-create',
+				query: { seller: sellerDB.name }
 			})">
 				{{ $t('ad.newAds') }}
 			</ui-button>
@@ -33,6 +34,7 @@ const authStore = useAuthStore()
 const { sellerDB } = storeToRefs(authStore)
 
 const sellerProductsStore = useSellerProductsStore(sellerDB.value?.name || '')
+sellerProductsStore.fetchRequests()
 const { sellerProductsData } = storeToRefs(sellerProductsStore)
 
 const el = ref<Document | null>(null);

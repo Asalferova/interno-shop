@@ -14,7 +14,6 @@ const help = {
 			return await $http.$post(getApiUrl('internoBD', 'support'), { body })
 		} catch (e) {
 			return null
-			console.warn(e)
 		}
 	}
 }

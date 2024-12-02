@@ -19,6 +19,9 @@ export default {
 	theme: 'Тема',
 	light: 'Светлая',
 	dark: 'Темная',
+  Description: 'Описание',
+	Photo: 'Фото',
+	DescriptionAndPhotos: 'Описание и фото',
 	aditionalMenu: {
 		'become a seller': 'Стать продавцом',
 		blog: 'Блог',
@@ -77,7 +80,8 @@ export default {
 	from: 'от',
 	to: 'до',
 	button: {
-		signIn: 'Войти'
+		signIn: 'Войти',
+		postProduct: 'Разместить товар'
 	},
 	byRating: 'По рейтингу',
 	onSiteFor: 'На сайте',
@@ -94,6 +98,7 @@ export default {
 	remove: 'Удалить',
 	edit: 'Редактировать',
 	delete: 'Удалить',
+	download: 'Загрузить',
 	'See all': 'Смотреть все',
 	'Learn more': 'Узнать больше',
 	'See more': 'Смотреть больше',
@@ -107,6 +112,7 @@ export default {
 	'Nothing found': 'Ничего не нашлось...',
 	'Return to home': 'Вернуться на главную',
 	Price: 'Цена',
+	PriceWithoutDiscounts: 'Цена без скидок',
 	More: 'Еще',
 	Rating: 'Рейтинг',
 	'Leave a rating': 'Оставьте оценку',

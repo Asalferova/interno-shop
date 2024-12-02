@@ -1,62 +1,10 @@
 export default {
 	newAds: 'New product',
 	editAds: 'Edit product',
-	Type: 'Ad Type',
-	title: 'Title',
-	typeTransaction: 'Type of transaction',
-	typeRental: 'Type of rental',
-	propertyType: 'Property Type',
-	object: 'Object',
-	apartments: {
-		typeHouse: 'Type of house',
-		yearConstruction: 'Year of construction',
-		floor: 'Floor',
-		floorsInTheHouse: 'Floors in the house',
-		parking: 'Parking',
-		passenger: 'Passenger',
-		entrance: 'Entrance',
-		yard: 'Yard',
-		numberOfRooms: 'Number of rooms',
-		studio: 'Studio',
-		totalArea: 'Total area',
-		livingArea: 'Living area',
-		kitchen: 'Kitchen',
-		numberOfBedrooms: 'Number of bedrooms',
-		sleepingPlaces: 'Sleeping places',
-		balconies: 'Balconies',
-		viewWindow: 'View window',
-		bathroom: 'Bathroom',
-		bathroomType: {
-			combined: 'Combined',
-			separated: 'Separated'
-		},
-		repair: 'Repair',
-		furniture: 'Furniture',
-		appliances: 'Appliances',
-		communication: 'Communication',
-		animals: 'Animals',
-		children: 'Children',
-		houseType: {
-			commissioned: 'Commissioned',
-			construction: 'Construction'
-		},
-		finished: 'Finished',
-		unfinished: 'Unfinished',
-		yearOfDelivery: 'Year of delivery'
-	},
-	townhouse: {
-		nameCottageSettlement: 'Name cottage settlement',
-		cadastralNumber: 'Cadastral number',
-		yearOfConstruction: 'Year of construction',
-		houseMaterial: 'House material',
-		areaHouse: 'Area house',
-		plotArea: 'Plot area',
-		numberOfFloors: 'Number of floors',
-		heating: 'Heating'
-	},
-	withoutUtilities: 'Without utilities',
-	utilityBills: 'Utility bills',
-	countersPaidSeparately: 'Counters are paid separately',
-	pledgeToTheOwner: 'Pledge to the owner',
-	prepayment: 'Prepayment'
+	name: 'Name',
+	additionalSpecs: 'Additional specs',
+	descriptionText: 'Description text',
+	author:'Author',
+	categories: 'Categories',
+  subcategories: 'Subcategories'
 }

@@ -4,6 +4,15 @@
 		<h1 class="products-create-page__title h2">
 			{{ title }}
 		</h1>
+
+		<div class="products-create-page__content">
+			<ProductsCreateSpecs
+				class="products-create-page__specs"
+			/>
+			<ProductsCreateProgress
+				class="products-create-page__progress"
+			/>
+		</div>
 	</div>
 </template>
 
@@ -41,6 +50,23 @@ const crumbs = [{ name: 'ad.newAds', path: null }]
 	}
 	&__breadcrumbs {
 		margin-bottom: 10px;
+	}
+	&__content {
+		display: flex;
+		column-gap: 32px;
+		margin-bottom: 26px;
+
+		@include adaptive(600) {
+			gap: 12px;
+		}
+
+		@include adaptive(450) {
+			gap: 6px;
+		}
+	}
+
+	&__specs {
+		flex: 1;
 	}
 }
 </style>

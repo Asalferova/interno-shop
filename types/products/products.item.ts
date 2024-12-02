@@ -22,7 +22,9 @@ export interface ProductItem {
 	locale: Locale,
 	currency: CurrencyName,
 	description: string,
-	comments: Comment[]
+	comments: Comment[],
+	category: string[],
+	subcategory: string[],
 }
 
 export interface ProductsFiltersSpecs {

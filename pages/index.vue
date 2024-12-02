@@ -1,6 +1,6 @@
 <template>
 	<div class="container main-page">
-		<template v-if="statusAllBooks === 'pending' || statusSortBooks === 'pending' || status === 'pending'">
+		<template v-if="statusAllBooks === 'pending' || status === 'pending'">
        <ui-loader></ui-loader>
 		</template>
 		<main-page-banner v-if="banners?.length > 0" :banners="banners" class="main-page__banners" />
