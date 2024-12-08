@@ -4,7 +4,7 @@ export default {
 	name: 'Name',
 	additionalSpecs: 'Additional specs',
 	descriptionText: 'Description text',
-	author:'Author',
+	author: 'Author',
 	categories: 'Categories',
-  subcategories: 'Subcategories'
+	subcategories: 'Subcategories'
 }

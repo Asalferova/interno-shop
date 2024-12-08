@@ -5,7 +5,7 @@
 			{{ $t('favorites') }}
 		</h1>
 		<template v-if="statusfavoritesProducts === 'pending'">
-			<ui-loader></ui-loader>
+			<ui-loader />
 		</template>
 		<template v-else-if="favoritesProductsData && favoritesProductsData.length">
 			<main class="favorites-page__main">
@@ -36,12 +36,12 @@ const { favoritesProductsData, statusfavoritesProducts } = storeToRefs(favorites
 
 const crumbs = [{ name: 'favorites', path: null }]
 
-const el = ref<Document | null>(null);
+const el = ref<Document | null>(null)
 
 onMounted(() => {
-	el.value = document;
-	useInfiniteScroll(el, favoritesStore.loadMore, { distance: 100 });
-});
+	el.value = document
+	useInfiniteScroll(el, favoritesStore.loadMore, { distance: 100 })
+})
 
 </script>
 

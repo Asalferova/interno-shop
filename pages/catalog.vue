@@ -1,7 +1,7 @@
 <template>
 	<div class="catalog-page container">
 		<template v-if="productsStatus === 'pending'">
-       <ui-loader></ui-loader>
+			<ui-loader />
 		</template>
 		<page-breadcrumbs :crumbs="crumbs" class="catalog-page__breadcrumbs" />
 		<div class="catalog-page__head">
@@ -46,12 +46,12 @@ const setCardsSize = (size: 'small' | 'medium') => {
 
 const crumbs = [{ name: 'catalog', path: null }]
 
-const el = ref<Document | null>(null);
+const el = ref<Document | null>(null)
 
 onMounted(() => {
-	el.value = document;
-	useInfiniteScroll(el, productsStore.loadMore, { distance: 100 });
-});
+	el.value = document
+	useInfiniteScroll(el, productsStore.loadMore, { distance: 100 })
+})
 </script>
 
 <style lang="scss" scoped>

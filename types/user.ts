@@ -29,8 +29,6 @@ export interface UserRegistrationDto {
   name: string,
 }
 
-export interface UserRegistrationResponse extends User {}
-
 export interface UserDbDTO {
   documentId: string,
 	data: {

@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
 import api from '~/api'
-import type { UserDbDTO, UserProfileUpdatePayload, UserRegistrationDto, UserRegistrationResponse } from '~/types/user'
+import type { UserDbDTO, UserProfileUpdatePayload, UserRegistrationDto, User } from '~/types/user'
 
 export const useUserStore = defineStore('user', () => {
-
-	const userRegister = async (payload: UserRegistrationDto): Promise<UserRegistrationResponse> => {
+	const userRegister = async (payload: UserRegistrationDto): Promise<User> => {
 		if (!payload) {
 			throw new Error('Incorrect payload')
 		}
@@ -23,14 +22,14 @@ export const useUserStore = defineStore('user', () => {
 		await api.sellers.createSeller(payload)
 	}
 
-	const updateUserProfile = async (id: string, payload: UserProfileUpdatePayload)  => {
+	const updateUserProfile = async (id: string, payload: UserProfileUpdatePayload) => {
 		if (!payload) {
 			return null
 		}
 		try {
 			const res = await api.user.updateUser(id, payload)
 			return res
-		} catch (_e) {
+		} catch {
 			return null
 		}
 	}

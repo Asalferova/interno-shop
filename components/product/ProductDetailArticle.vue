@@ -1,8 +1,8 @@
 <template>
-	<div class="object-detail-article">
-		<product-detail-gallery :images="product.images" class="object-detail-article__gallery">
+	<div class="product-detail-article">
+		<product-detail-gallery :images="product.images" class="product-detail-article__gallery">
 		</product-detail-gallery>
-		<product-detail-info :product="product" class="object-detail-article__info"></product-detail-info>
+		<product-detail-info :product="product" class="product-detail-article__info"></product-detail-info>
 	</div>
 </template>
 <script lang="ts" setup>
@@ -19,7 +19,7 @@ withDefaults(
 </script>
 
 <style lang="scss" scoped>
-.object-detail-article {
+.product-detail-article {
 	display: flex;
 	gap: 26px;
 

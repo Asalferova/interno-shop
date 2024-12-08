@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '~/api'
-import type { CurrentSession, LoginDto, LoginResponse } from '~/types/auth'
+import type { LoginDto, LoginResponse } from '~/types/auth'
 import type { User, UserDbResponse } from '~/types/user'
 import type { SellerItem } from '~/types/sellers/sellers.item'
 
@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', () => {
 
 	const {
 		refresh
-	} = useLazyAsyncData<CurrentSession>('checkAuth', async () => {
+	} = useLazyAsyncData<User>('checkAuth', async () => {
 		try {
 			const res = await api.auth.getCurrentSession()
 			user.value = res
@@ -45,8 +45,8 @@ export const useAuthStore = defineStore('auth', () => {
 		try {
 			await api.auth.logout()
 			user.value = null
-			userDB.value = null;
-			sellerDB.value = null;
+			userDB.value = null
+			sellerDB.value = null
 		} catch (e) {
 			console.error(e)
 			throw e
@@ -55,31 +55,29 @@ export const useAuthStore = defineStore('auth', () => {
 
 	refresh()
 
-	async function fetchUser() {
+	async function fetchUser () {
 		try {
 			if (user.value) {
-				const res = await api.user.getUserById(user.value.$id);
-				userDB.value = res;
-				return res;
+				const res = await api.user.getUserById(user.value.$id)
+				userDB.value = res
+				return res
 			}
-			return
 		} catch (e) {
-			userDB.value = null;
-			throw e;
+			userDB.value = null
+			throw e
 		}
 	}
 
-	async function fetchSeller() {
+	async function fetchSeller () {
 		try {
 			if (user.value) {
-				const res = await api.sellers.getSellerById(user.value.$id);
-				sellerDB.value = res;
-				return res;
+				const res = await api.sellers.getSellerById(user.value.$id)
+				sellerDB.value = res
+				return res
 			}
-			return
 		} catch (e) {
-			sellerDB.value = null;
-			throw e;
+			sellerDB.value = null
+			throw e
 		}
 	}
 

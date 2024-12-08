@@ -123,6 +123,7 @@ export default {
 	AlreadyHaveAnAccount: 'Already have an account?',
 	LogIn: 'Log in',
 	Logout: 'Logout',
+	order: 'Order',
 	User: 'User',
 	Save: 'Save',
 	Change: 'Change',
@@ -176,6 +177,8 @@ export default {
 	reduceQuantity: 'reduce the quantity',
 	increaseQuantity: 'increase the quantity',
 	currency: 'Currency',
+	orderSuccessMessage: 'Your order has been successfully created!',
+	orderSuccessMessageInfo: 'We will send you all the necessary information by email shortly. For any questions, please contact support.',
 	'You can only register one store': 'You can only register one store',
 	help: {
 		'report a problem': 'Report a problem',
@@ -183,7 +186,16 @@ export default {
 		success: 'Your message has been sent. Expect a response within 3 days'
 	},
 	inputError: 'Error. Make sure the information you entered is correct and try again',
+	deliveryByCourier: 'Delivery by courier',
+	delivery: 'Delivery',
+	courier: 'Courier',
+	deliveryMessage: 'Be careful, delivery will be carried out to the selected point on the map! For To zoom in on the map, use the search function.',
+	deliveryErrorMessage: 'Delivery is carried out only in Moscow',
+	deliveryAddress: 'Delivery address:',
 	fieldsError: 'All fields must be completed',
+	payment: 'Payment',
+	uponReceipt: 'Upon Receipt',
+	recipientDetails: 'Recipient Details',
 	EnterStoreName: 'Enter store name',
 	storeName: 'Store name',
 	termsOfUseObj: {

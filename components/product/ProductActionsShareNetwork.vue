@@ -24,7 +24,9 @@ const shareNetworkRef = ref(null)
 const runWorkaround = (): void => {
 	if (shareNetworkRef.value === null) return
 
+	//@ts-ignore
 	clearInterval(shareNetworkRef.value.popupInterval)
+	//@ts-ignore
 	shareNetworkRef.value.popupWindow = undefined
 }
 

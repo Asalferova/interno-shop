@@ -12,7 +12,7 @@ const help = {
 	createHelpMessage: async (body: CreateReport) => {
 		try {
 			return await $http.$post(getApiUrl('internoBD', 'support'), { body })
-		} catch (e) {
+		} catch {
 			return null
 		}
 	}

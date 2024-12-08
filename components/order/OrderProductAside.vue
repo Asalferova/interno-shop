@@ -20,15 +20,15 @@
 						</transition>
 					</div>
 					<div class="order-product-aside__info-item">
-						Доставка:
-							<span class="bold">Самовывоз</span>
+						{{ $t('delivery') }}:
+						<span class="bold">{{ $t('courier') }}</span>
 					</div>
 					<div class="order-product-aside__info-item">
-						Оплата:
-							<span class="bold">Онлайн оплата</span>
+						{{ $t('payment') }}:
+						<span class="bold">{{ $t('uponReceipt') }}</span>
 					</div>
 				</div>
-				<ui-button :color="'primary'" :disabled="totalQuantity < 1">{{
+				<ui-button :color="'primary'" :disabled="!disabledOrderButton" @click="emit('orderPlaced', true)">{{
 					$t("Place an order")
 				}}</ui-button>
 			</div>
@@ -43,6 +43,13 @@ import { useCartStore } from "~/store/cart";
 import getPriceFormat from "~/utils/priceFormat";
 import { useI18n } from "#imports";
 import { useCurrencyStore } from "~/store/currensy";
+
+
+defineProps<{ disabledOrderButton: boolean }>()
+
+const emit = defineEmits<{
+	(event: 'orderPlaced', value: boolean): void;
+}>();
 
 const { t } = useI18n();
 
@@ -97,6 +104,7 @@ const getQuantityLabel = (count: number): string => {
 		&-item {
 			display: flex;
 			justify-content: space-between;
+			@include text-ellipsis();
 		}
 
 		@include adaptive(900) {

@@ -18,12 +18,12 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
+import { v4 as uuid } from 'uuid'
 import { useAuthStore } from '~/store/auth'
 import ProfileUser from '~/components/profile/ProfileUser.vue'
 import ProfileSeller from '~/components/profile/ProfileSeller.vue'
 import { UserRoles, type UserProfileUpdatePayload } from '~/types/user'
 import { useUserStore } from '~/store/user'
-import { v4 as uuid } from "uuid";
 import api from '~/api'
 
 definePageMeta({
@@ -70,7 +70,6 @@ const onSaveHandler = async (payload: UserProfileUpdatePayload) => {
 	if (user.value) {
 		return await userStore.updateUserProfile(user.value.$id, { ...formProfileUpdate.value, ...payload })
 	}
-	return
 }
 
 const formProfileUpdate = ref<{
@@ -80,24 +79,24 @@ const formProfileUpdate = ref<{
 const onAvatarChange = async (file: File) => {
 	const reader = new FileReader()
 	const formData = new FormData()
-	const fileId = uuid();
-	const permissions = ["read(\"any\")"]
+	const fileId = uuid()
+	const permissions = ['read("any")']
 
 	reader.onload = (e) => {
 		avatar.value = e.target?.result as string
 	}
 	reader.readAsDataURL(file)
 
-	formData.append('fileId', fileId);
+	formData.append('fileId', fileId)
 	formData.append('file', file)
-	permissions.forEach(permission => {
-		formData.append('permissions[]', permission);
-	});
-	
+	permissions.forEach((permission) => {
+		formData.append('permissions[]', permission)
+	})
+
 	const { $id } = await api.upload.uploadFile(formData)
 	if ($id) {
-		const avatar_url = `https://cloud.appwrite.io/v1/storage/buckets/storage/files/${$id}/view?project=interno-shop&project=interno-shop`
-		formProfileUpdate.value.avatar = avatar_url
+		const avatarUrl = `https://cloud.appwrite.io/v1/storage/buckets/storage/files/${$id}/view?project=interno-shop&project=interno-shop`
+		formProfileUpdate.value.avatar = avatarUrl
 	}
 }
 

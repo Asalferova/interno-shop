@@ -1,7 +1,7 @@
 <template>
 	<div class="cart-page container">
 		<template v-if="statusCartProducts === 'pending'">
-       <ui-loader></ui-loader>
+			<ui-loader />
 		</template>
 		<page-breadcrumbs :crumbs="crumbs" class="cart-page__breadcrumbs" />
 		<h1 class="cart-page__title">

@@ -120,16 +120,16 @@ export const useProductsStore = defineStore('products', () => {
 		const result: FilterDefault[] = []
 		if (searchValue.value.search?.length) {
 			result.push({
-				method: "or",
+				method: 'or',
 				values: [
 					{
-						method: "contains",
-						attribute: "name",
+						method: 'contains',
+						attribute: 'name',
 						values: searchValue.value.search
 					},
 					{
-						method: "contains",
-						attribute: "author",
+						method: 'contains',
+						attribute: 'author',
 						values: searchValue.value.search
 					}
 				]
@@ -176,24 +176,23 @@ export const useProductsStore = defineStore('products', () => {
 	const loadMore = async () => {
 		if (products.value.length < totalItems.value) {
 			const remaining = totalItems.value - products.value.length
-			const limit = Math.min(remaining, 24);
+			const limit = Math.min(remaining, 24)
 			try {
 				const res = await api.products.getProducts(
-				...[
-				{ method: 'limit', values: [limit] },
-				{ method: 'offset', values: [products.value.length] }],
-				...recalculatedFilter?.value,
-				...recalculatedSorting?.value,
-				...recalculatedSearch?.value,
-				currentLocaleFilter.value
-			)
-				products.value =  [...products.value, ...res.documents]
+					...[
+						{ method: 'limit', values: [limit] },
+						{ method: 'offset', values: [products.value.length] }],
+					...recalculatedFilter?.value,
+					...recalculatedSorting?.value,
+					...recalculatedSearch?.value,
+					currentLocaleFilter.value
+				)
+				products.value = [...products.value, ...res.documents]
 			} catch (e) {
 				console.log(e)
 				throw e
 			}
 		}
-		return
 	}
 
 	return {

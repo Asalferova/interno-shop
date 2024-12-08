@@ -1,4 +1,4 @@
-import type { ProductItem } from "../products/products.item";
+import type { ProductItem } from '../products/products.item'
 
 export interface SellerItem {
 	$collectionId: string,

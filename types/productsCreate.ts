@@ -1,5 +1,5 @@
-import type { CurrencyName } from "./currency";
-import type { Locale } from "./languages";
+import type { CurrencyName } from './currency'
+import type { Locale } from './languages'
 
 export interface CreateProductDto {
 	images: string[]

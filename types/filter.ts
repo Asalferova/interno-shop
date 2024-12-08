@@ -4,7 +4,6 @@ export interface Filter {
 	values?: boolean[] | string[] | number[]
 }
 
-
 export interface FilterDefault {
 	method: string,
 	attribute?: string,

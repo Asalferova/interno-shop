@@ -8,11 +8,11 @@
 			<main class="order-page__main">
 				<div class="order-page__content">
 					<ul class="list">
-						<li class="t">
-							<h3 class="one">
-								Заказ
+						<li class="order-page__content-item">
+							<h3 class="order-page__content-title">
+								{{ $t('order') }}
 							</h3>
-							<ul class="list j">
+							<ul class="list order-page__content-list">
 								<li v-for="(product, i) of cartProductsData" :key="`cart-products-list__item-${i}`" class="j__item">
 									<order-product
 										:card="product"
@@ -22,34 +22,25 @@
 								</li>
 							</ul>
 						</li>
-						<li class="t">
-							<h3 class="one">
-								Доставка
+						<li class="order-page__content-item">
+							<h3 class="order-page__content-title">
+								{{ $t('delivery') }}
 							</h3>
-						</li>
-						<li class="t">
-							<h3 class="one">
-								Оплата
-							</h3>
-						</li>
-						<li class="t">
-							<h3 class="one">
-								Данные получателя
-							</h3>
+							<order-delivery-comp @complete="handleComplete" />
 						</li>
 					</ul>
 				</div>
-				<order-product-aside class="order-page__aside" />
+				<order-product-aside
+					class="order-page__aside"
+					:disabled-order-button="isDeliveryComplete"
+					@order-placed="createOrder"
+				/>
 			</main>
 		</template>
 		<template v-else>
 			<div class="order-page__message">
 				{{ $t("Nothing found") }}
-				<ui-button
-					:color="'primary'"
-					class="order-page__message-link"
-					to="/"
-				>
+				<ui-button :color="'primary'" class="order-page__message-link" to="/">
 					{{ $t("Return to home") }}
 				</ui-button>
 			</div>
@@ -58,16 +49,46 @@
 </template>
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
+import { useModal } from 'vue-final-modal'
 import { useCartStore } from '~/store/cart'
+import AuthModal from '~/components/auth/modal/AuthModal.vue'
+import OrderCreatedMessageModal from '~/components/modals/OrderCreatedMessageModal.vue'
+import { useAuthStore } from '~/store/auth'
+
 useHead({
 	title: 'placing an order'
 })
 
+const authStore = useAuthStore()
+const { loggedIn } = storeToRefs(authStore)
 const cartStore = useCartStore()
 cartStore.getMyCartProducts('order')
+
+const { open: openAuthModal } = useModal({
+	component: AuthModal
+})
+
+const { open: openOrderCreatedMessageModal } = useModal({
+	component: OrderCreatedMessageModal
+})
+
+const createOrder = () => {
+	if (loggedIn.value) {
+		openOrderCreatedMessageModal()
+	} else {
+		openAuthModal()
+	}
+}
+
 const { cartProductsData, cartProducts } = storeToRefs(cartStore)
 
 const crumbs = [{ name: 'placing an order', path: null }]
+
+const isDeliveryComplete = ref(false)
+
+const handleComplete = (isComplete: boolean) => {
+	isDeliveryComplete.value = isComplete
+}
 </script>
 
 <style lang="scss" scoped>
@@ -90,7 +111,7 @@ const crumbs = [{ name: 'placing an order', path: null }]
 	&__main {
 		display: flex;
 		gap: 40px;
-		margin: 26px 0;
+		margin-top: 26px;
 
 		@include adaptive(900) {
 			flex-direction: column;
@@ -99,6 +120,34 @@ const crumbs = [{ name: 'placing an order', path: null }]
 
 	&__content {
 		width: 64%;
+
+		&-title {
+			padding: 10px 24px;
+			font-size: 22px;
+			line-height: 1;
+			height: 42px;
+			font-weight: 400;
+			background-color: $primary;
+			color: $text-light-primary;
+			border-radius: 13px;
+			margin: 0;
+			margin-bottom: 15px;
+		}
+
+		&-item {
+			margin-bottom: 15px;
+		}
+
+		&-list {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+
+			&__item:not(:last-child) {
+				border-bottom: 1px solid $primary;
+				padding-bottom: 5px;
+			}
+		}
 
 		@include adaptive(900) {
 			width: 100%;
@@ -124,38 +173,10 @@ const crumbs = [{ name: 'placing an order', path: null }]
 		}
 
 		&-link {
-      @include adaptive(767) {
-			font-size: 16px;
-		}
+			@include adaptive(767) {
+				font-size: 16px;
+			}
 		}
 	}
-}
-
-.one {
-	padding: 10px 24px;
-	font-size: 22px;
-	line-height: 1;
-	height: 42px;
-	font-weight: 400;
-	background-color: $primary;
-	color: $text-light-primary;
-	border-radius: 13px;
-	margin: 0;
-	margin-bottom: 15px;
-}
-
-.j {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-
-	&__item:not(:last-child) {
-		border-bottom: 1px solid $primary;
-		padding-bottom: 5px;
-	}
-}
-
-.t {
-	margin-bottom: 15px;
 }
 </style>

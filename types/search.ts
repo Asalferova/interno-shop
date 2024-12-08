@@ -1,5 +1,4 @@
 import type { FilterDefault } from './filter'
-import type { Locale } from './languages'
 
 export interface Search {
 	name: string,

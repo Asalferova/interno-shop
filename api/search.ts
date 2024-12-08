@@ -1,29 +1,29 @@
-import type { SearchFetchResponse } from '~/types/search'
 import { getApiUrl } from '.'
+import type { SearchFetchResponse } from '~/types/search'
 
 const search = {
 	getSuggestions: async (request: string[], locale: string) : Promise<SearchFetchResponse> => {
 		const params = {
 			queries: [
 				{
-					method: "select",
-					values: ["name", "author"]
+					method: 'select',
+					values: ['name', 'author']
 				},
 				{
 					method: 'limit',
 					values: [5]
 				},
 				{
-					method: "or",
+					method: 'or',
 					values: [
 						{
-							method: "contains",
-							attribute: "name",
+							method: 'contains',
+							attribute: 'name',
 							values: request
 						},
 						{
-							method: "contains",
-							attribute: "author",
+							method: 'contains',
+							attribute: 'author',
 							values: request
 						}
 					]

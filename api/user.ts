@@ -1,8 +1,8 @@
 import { getApiUrl } from '.'
-import type { UserDbDTO, UserDbResponse, UserProfileUpdatePayload, UserRegistrationDto, UserRegistrationResponse } from '~/types/user'
+import type { User, UserDbDTO, UserDbResponse, UserProfileUpdatePayload, UserRegistrationDto } from '~/types/user'
 
 const users = {
-	register: async (payload: UserRegistrationDto): Promise<UserRegistrationResponse> => {
+	register: async (payload: UserRegistrationDto): Promise<User> => {
 		const response = await $http.$post('/api/account', {
 			body: payload,
 			credentials: 'include'
@@ -19,15 +19,15 @@ const users = {
 	},
 	updateUser: async (userId: string, payload: UserProfileUpdatePayload): Promise<UserDbResponse> => {
 		const params = {
-			"data": payload,
-			"permissions": ["read(\"any\")"]
+			data: payload,
+			permissions: ['read("any")']
 		}
 		const response = await $http.$patch(`${getApiUrl('internoBD', 'users')}/${userId}`, {
 			body: params
 		}
-		);
-		return response;
-	},
+		)
+		return response
+	}
 }
 
 export default users

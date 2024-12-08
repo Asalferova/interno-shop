@@ -53,21 +53,20 @@ export const useFavoritesStore = defineStore('favorites', () => {
 	const loadMore = async () => {
 		if (favoritesProductsData.value.length < totalItems.value) {
 			const remaining = totalItems.value - favoritesProductsData.value.length
-			const limit = Math.min(remaining, 24);
+			const limit = Math.min(remaining, 24)
 			try {
 				const res = await api.products.getProducts(
-				...[
-				{ method: 'limit', values: [limit] },
-				{ method: 'offset', values: [favoritesProductsData.value.length] }],
-        filters
-			)
-			favoritesProductsData.value =  [...favoritesProductsData.value, ...res.documents]
+					...[
+						{ method: 'limit', values: [limit] },
+						{ method: 'offset', values: [favoritesProductsData.value.length] }],
+					filters
+				)
+				favoritesProductsData.value = [...favoritesProductsData.value, ...res.documents]
 			} catch (e) {
 				console.log(e)
 				throw e
 			}
 		}
-		return
 	}
 
 	return {

@@ -29,7 +29,8 @@ export default defineNuxtConfig({
 		public: {
 			apiBase: process.env.NUXT_PUBLIC_API_BASE,
 			apiPrefix: '/api/',
-			baseUrl: process.env.NUXT_BASE_URL
+			baseUrl: process.env.NUXT_BASE_URL,
+			tomTomToken: process.env.TOMTOM_ACCESS_TOKEN
 		}
 	},
 	proxy: {

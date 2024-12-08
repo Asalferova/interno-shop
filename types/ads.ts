@@ -1,5 +1,5 @@
-import type { FilterDefault } from "./filter";
-import type { Locale } from "./languages";
+import type { FilterDefault } from './filter'
+import type { Locale } from './languages'
 
 export interface Banner {
 	imageUrl: string;
@@ -26,16 +26,16 @@ export namespace AdsApi {
 }
 
 export enum AdsStatus {
-	Active = "ACTIVE",
-	Draft = "DRAFT",
+	Active = 'ACTIVE',
+	Draft = 'DRAFT',
 }
 
 export enum MenuAction {
-	Edit = "edit",
-	Complete = "COMPLETED",
-	Delete = "delete",
-	Recover = "ACTIVE",
-	HotOffer = "HOT_OFFER",
+	Edit = 'edit',
+	Complete = 'COMPLETED',
+	Delete = 'delete',
+	Recover = 'ACTIVE',
+	HotOffer = 'HOT_OFFER',
 }
 
 export interface MenuItemInterface {

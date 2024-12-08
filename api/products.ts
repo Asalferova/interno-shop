@@ -13,8 +13,8 @@ const products = {
 	},
 	createNewProduct: async (id: string, payload: Partial<CreateProductDto>) => {
 		const params = {
-			"documentId": id,
-			"data": payload
+			documentId: id,
+			data: payload
 		}
 		return await $http.$post(getApiUrl('internoBD', 'products'), {
 			body: params
@@ -22,8 +22,8 @@ const products = {
 	},
 	editProduct: async (id: string, payload: Partial<CreateProductDto>) => {
 		const params = {
-			"data": payload,
-			"permissions": ["read(\"any\")"]
+			data: payload,
+			permissions: ['read("any")']
 		}
 		return await $http.$patch(`${getApiUrl('internoBD', 'products')}/${id}`, {
 			body: params

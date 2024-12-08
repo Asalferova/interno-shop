@@ -4,7 +4,7 @@ export default {
 	name: 'Название',
 	additionalSpecs: 'Дополнительные характеристики',
 	descriptionText: 'Текст описания',
-	author:'Автор',
+	author: 'Автор',
 	categories: 'Категории',
-  subcategories: 'Подкатегории'
+	subcategories: 'Подкатегории'
 }

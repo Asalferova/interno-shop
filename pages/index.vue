@@ -1,7 +1,7 @@
 <template>
 	<div class="container main-page">
 		<template v-if="statusAllBooks === 'pending' || status === 'pending'">
-       <ui-loader></ui-loader>
+			<ui-loader />
 		</template>
 		<main-page-banner v-if="banners?.length > 0" :banners="banners" class="main-page__banners" />
 		<template v-if="sortBooks && sortBooks.length">
@@ -49,7 +49,7 @@ const mainPageAdsStore = useMainPageAdsStore()
 const { banners, status } = storeToRefs(mainPageAdsStore)
 
 const mainPageStore = useMainPageStore()
-const { allBooks, sortBooks, currentSortKey, statusSortBooks, statusAllBooks } = storeToRefs(mainPageStore)
+const { allBooks, sortBooks, currentSortKey, statusAllBooks } = storeToRefs(mainPageStore)
 
 const bookSortItems = [
 	{ key: 'isNew', label: 'new' },
@@ -57,12 +57,12 @@ const bookSortItems = [
 	{ key: 'isDiscounted', label: 'sale' }
 ]
 
-const el = ref<Document | null>(null);
+const el = ref<Document | null>(null)
 
 onMounted(() => {
-	el.value = document;
-	useInfiniteScroll(el, mainPageStore.loadMore, { distance: 100 });
-});
+	el.value = document
+	useInfiniteScroll(el, mainPageStore.loadMore, { distance: 100 })
+})
 
 </script>
 

@@ -1,11 +1,6 @@
-import type { User } from './user'
-
 export enum AuthState {
 	SIGN_IN = 'signIn',
 	SIGN_UP = 'signUp'
-}
-
-export interface CurrentSession extends User {
 }
 
 export interface LoginDto {

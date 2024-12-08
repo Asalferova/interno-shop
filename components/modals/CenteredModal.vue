@@ -5,7 +5,6 @@
 		<h4 v-if="$slots.title" class="centered-modal__title">
 			<slot name="title" />
 		</h4>
-
 		<div class="centered-modal__inner">
 			<slot />
 		</div>
@@ -59,13 +58,6 @@ const show = useVModel(props, "modelValue", emit);
 			}
 		}
 	}
-
-	// &__inner {
-	// 	@include adaptive(550) {
-	// 		display: flex;
-	// 		flex-grow: 1;
-	// 	}
-	// }
 
 	&__title {
 		margin: 26px 0;

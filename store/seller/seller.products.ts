@@ -5,7 +5,6 @@ import type { FilterDefault, Pagination } from '~/types/filter'
 import type { ProductItem } from '~/types/products/products.item'
 
 export const useSellerProductsStore = (name: string) => defineStore(`sellerProductsStore${name}`, () => {
-
 	const sellerProductsData = ref<ProductItem[]>([])
 	const totalItems = ref(0)
 	const pagination = ref<Pagination>({
@@ -33,7 +32,7 @@ export const useSellerProductsStore = (name: string) => defineStore(`sellerProdu
 	const loadMore = async () => {
 		if (sellerProductsData.value.length < totalItems.value) {
 			const remaining = totalItems.value - sellerProductsData.value.length
-			const limit = Math.min(remaining, 24);
+			const limit = Math.min(remaining, 24)
 			try {
 				const res = await api.products.getProducts(
 					...[
@@ -47,7 +46,6 @@ export const useSellerProductsStore = (name: string) => defineStore(`sellerProdu
 				throw e
 			}
 		}
-		return
 	}
 
 	return {

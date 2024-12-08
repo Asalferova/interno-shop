@@ -5,7 +5,7 @@
 			<slot />
 			<ModalsContainer />
 		</div>
-		<page-cookie-message></page-cookie-message>
+		<page-cookie-message />
 		<layout-mobile-nav-bar />
 		<layout-footer :menu-socials="socials" :menu-contacts="contacts" :menu-rules="menuRules" class="layout__footer" />
 	</div>

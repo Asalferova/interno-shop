@@ -6,9 +6,13 @@
 				<product-detail-top class="products-detail-page__top" />
 				<product-detail-article :product="product" class="products-detail-page__content" />
 				<comments-block :comments="comments" class="products-detail-page__comments" />
-				<ui-button v-if="comments.length >= 5" color="primary" class="products-detail-page__btn"
+				<ui-button
+					v-if="comments.length >= 5"
+					color="primary"
+					class="products-detail-page__btn"
 					:disabled="comments.length === product.comments.length"
-					@click="showMoreComments">
+					@click="showMoreComments"
+				>
 					{{ $t('Show more') }}
 				</ui-button>
 			</main>
@@ -41,21 +45,21 @@ const crumbs = computed(() => [
 	{ name: product.value.name, path: null, withoutTranslation: true }
 ])
 
-const visibleCount = ref(5);
-const comments = ref<Comment[]>([]);
+const visibleCount = ref(5)
+const comments = ref<Comment[]>([])
 
 watch(product, (newProduct) => {
 	if (newProduct && newProduct.comments) {
-		comments.value = newProduct.comments.slice(-visibleCount.value).reverse();
+		comments.value = newProduct.comments.slice(-visibleCount.value).reverse()
 	}
-});
+})
 
 const showMoreComments = () => {
 	if (product.value && product.value.comments) {
-		visibleCount.value += 5;
-		comments.value = product.value.comments.slice(-visibleCount.value).reverse();
+		visibleCount.value += 5
+		comments.value = product.value.comments.slice(-visibleCount.value).reverse()
 	}
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -6,14 +6,13 @@ import type { CreateProductAccomplishedModel, CreateProductDto } from '~/types/p
 
 export const useProductsCreateStore = (id = 'default') => defineStore(`products-create-${id}`, () => {
 	const router = useRouter()
-	const route = useRoute()
 	const newProductId = ref('')
 
 	const accomplishedSegmentsModel = ref<CreateProductAccomplishedModel>({
 		name: false,
 		price: false,
 		additionalSpecs: false,
-		descriptionAndPhotos: false,
+		descriptionAndPhotos: false
 	})
 
 	const editableProduct = ref<null | ProductItem>(null)
@@ -72,7 +71,7 @@ export const useProductsCreateStore = (id = 'default') => defineStore(`products-
 
 	const createNewProduct = async () => {
 		const payload = removeEmptyProperties({
-			...productsCreatePayload.value,
+			...productsCreatePayload.value
 		})
 		if (id) {
 			try {
