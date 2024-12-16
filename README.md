@@ -1,75 +1,80 @@
-# Nuxt 3 Minimal Starter
+# [Interno-Marketplace](https://sinternoalferova.netlify.app/ "Ссылка на сайт")
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# Содержание
 
-## Setup
+1. <a href="#description">Описание проекта</a>
+2. <a href="#setup">Настройка проекта</a>
+3. <a href="#stack">Технологии</a>
 
-Make sure to install the dependencies:
+   
+<h2 id="description">Описание проекта</h2>
 
-```bash
-# npm
+Маркетплейс книг. Пользователи могут регистрироваться как продавцы или покупатели.
+Ссылка на деплой - [ссылка](https://sinternoalferova.netlify.app/ "Ссылка на сайт")
+
+Основные функции сайта:
+
+  1. Регистрация и авторизация. Управление профилем.
+  2. Поиск и фильтрация.
+  3. Пагинация.
+  4. Управление товарами (для продавцов). Создание, редактирование и удаление товаров.
+  5. Отзывы и рейтинги.
+  6. Избранное и корзина.
+  7. Заказ товара.
+  8. Карта.
+  9. Многоязычность, смена валюты, смена темы.
+  10. Адаптивный дизайн.
+
+<h2 id="setup">Настройка проекта</h2>
+
+### Установка
+```
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
+### Компилирует и выполняет перезагрузку для разработки
+```
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
+### Компилирует и минимизирует для продакшн
+```
 npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+<h2 id="stack">Технологии</h2>
 
-```bash
-# npm
-npm run preview
+Основные технологии
 
-# pnpm
-pnpm run preview
+  * Nuxt.js: 3
+  * TypeScript
+  * Vue.js
+  * Sass
+		
+Дополнительные плагины и библиотеки
 
-# yarn
-yarn preview
+  * Pinia
+  * @pinia-plugin-persistedstate
+  * @nuxtjs/i18n
+  * Vuelidate
+  * Vue Final Modal
+  * Nuxt Swiper
+  * Vue Tippy
+  * @vueuse/core
+  * @vueuse/color-mode
+  * vue-tel-input
+  * click-outside-vue3
+  * v-clipboard
+  * vue-social-sharing
+  * vite-plugin-svg-icons
+  * @nuxt-alt/http
+  * @nuxt-alt/proxy
+  * Lodash-es
+  * Date-fns
+  * UUID
+  * TomTom Web SDK
 
-# bun
-bun run preview
-```
+Инструменты разработки
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+  * ESLint
+  * Stylelint
